@@ -1,0 +1,442 @@
+//------------------------------------------------------------------
+// Public API
+//------------------------------------------------------------------
+
+/// @defgroup public_api Public API
+/// @brief Provides an overview of the public APIs implemented by different
+/// components in Kodo.
+
+//------------------------------------------------------------------
+// Interfaces
+//------------------------------------------------------------------
+
+/// @defgroup interface Interfaces
+/// @brief The polymorphic interfaces avalable in Kodo
+
+//------------------------------------------------------------------
+// LAYERS
+//------------------------------------------------------------------
+
+/// @defgroup api_layer API Layers
+/// @brief Provides an overview of the APIs implemented by different
+/// components in Kodo.
+///
+/// Kodo is built using a C++ design technique called Mixin-Layers.
+/// Mixin-Layers is a flexible way of separating functionality into reusable
+/// building blocks (called layers).
+///
+/// At each layer a separate API is specified and in order to customize or
+/// add functionality to Kodo it is necessary to understand which API
+/// layer to look at.
+///
+/// @note That is by no means required that a specific encoder and
+///       decoder utilize or provide all API layers. The API layers main
+///       purpose is to facilitate re-use between implementations of
+///       different encoders and decoders.
+///
+/// If you wish to get a better understanding of the layering technique
+/// used, you may take a look at the \ref mixin_example.
+///
+///
+/// Before showing the typical layered structure of an encoder and decoder
+/// implemented in Kodo is ...
+
+//------------------------------------------------------------------
+// CONFIG
+//------------------------------------------------------------------
+
+/// @defgroup config Config
+/// @ingroup api_layer
+///
+/// @brief The config layers are used to extend the config object with
+///        the state and methods needed to construct and initialize
+///        encoders and decoders.
+
+/// @defgroup config_api API
+/// @ingroup config
+/// @brief The API used by config layers.
+
+/// @defgroup config_layers Layers
+/// @ingroup config
+/// @brief Implementations of the config API.
+
+//------------------------------------------------------------------
+// FACTORY
+//------------------------------------------------------------------
+
+/// @defgroup factory Factory
+///
+/// @brief A factory is used to build new encoders and
+///        decoders. Different factory implmentations exist to provide
+///        memory re-use and so forth.
+
+/// @defgroup factory_api API
+/// @ingroup factory
+/// @brief The basic API provided by factory objects
+
+/// @defgroup factory_types Factory Types
+/// @ingroup factory
+/// @brief Implementations of the factory API.
+
+//------------------------------------------------------------------
+// FINITE FIELD
+//------------------------------------------------------------------
+
+/// @defgroup finite_field Finite Field
+/// @ingroup api_layer
+/// @brief The finite field layers perform computations on symbols
+///        and symbol coefficients.
+
+/// @defgroup finite_field_api API
+/// @ingroup finite_field
+/// @brief The API used by finite field layers.
+
+/// @defgroup finite_field_layers Layers
+/// @ingroup finite_field
+/// @brief Implementations of the finite_filed API.
+
+//------------------------------------------------------------------
+// COEFFICIENT GENERATOR API
+//------------------------------------------------------------------
+
+/// @defgroup coefficient_generator Coefficient Generator
+/// @ingroup api_layer
+/// @brief Responsible for generating the coding coefficients.
+
+/// @defgroup coefficient_generator_api API
+/// @ingroup coefficient_generator
+/// @brief The API used by generator layers.
+
+/// @defgroup coefficient_generator_layers Layers
+/// @ingroup coefficient_generator
+/// @brief Implementations of the coefficient generator API.
+
+//------------------------------------------------------------------
+// CONSTRUCTION API
+//------------------------------------------------------------------
+
+/// @defgroup construction Construction
+/// @ingroup api_layer
+/// @brief Implements API using during construction of a codec.
+
+/// @defgroup construction_api API
+/// @ingroup construction
+/// @brief The construction API
+
+//------------------------------------------------------------------
+// SYMBOL ID API
+//------------------------------------------------------------------
+
+/// @defgroup symbol_id Symbol IDs
+/// @ingroup api_layer
+/// @brief The symbol id describes how an encoded symbol has been produced.
+///
+/// The symbol id uniquely describes the coding coefficients which are used
+/// by the encoder to create an encoded symbol as linear combinations of
+/// a set of original source symbols. By transmitting the symbol id to the
+/// decoder it can re-create the coding coefficients used to generate the
+/// encoded symbol and by solving a linear system re-produce the original
+/// source symbols.
+/// @note In its simplest from the symbol id is the actual coding
+///       coefficients. This type of symbol id is produced by the
+///       kodo::random_uniform_symbol_id<SuperCoder>  class.
+///       However for efficiency reasons you may want to limit the
+///       amount of data transmitted between an encoder and decoder
+///       by transmitting a smaller id.
+///       One example of this is to use the seed_symbol_id
+///       which only transmits the seed for the pseudo-random number
+///       generator used to generate the coding coefficients.
+///
+///
+/// @note In Network Coding applications the symbol id is often referred
+///       to as the encoding vector.
+
+/// @defgroup symbol_id_api API
+/// @ingroup symbol_id
+/// @brief The API used by symbol id layers.
+
+/// @defgroup symbol_id_layers Layers
+/// @ingroup symbol_id
+/// @brief Implementations of the symbol id API.
+
+//------------------------------------------------------------------
+// SYMBOL STORAGE API
+//------------------------------------------------------------------
+
+/// @defgroup symbol_storage Symbol Storage
+/// @ingroup api_layer
+/// @brief Handles storage of encoding and decoding symbols.
+
+/// @defgroup storage_api API
+/// @ingroup symbol_storage
+/// @brief The API used by storage layers.
+
+/// @defgroup symbol_storage_layers Layers
+/// @ingroup symbol_storage
+/// @brief Implementations of the storage API.
+
+//------------------------------------------------------------------
+// COEFFICIENT STORAGE API
+//------------------------------------------------------------------
+
+/// @defgroup coefficient_storage Coefficient Storage
+/// @ingroup api_layer
+/// @brief Handles storage of coding coefficients.
+
+/// @defgroup coefficient_storage_api API
+/// @ingroup coefficient_storage
+/// @brief The API used by storage layers.
+
+/// @defgroup coefficient_storage_layers Layers
+/// @ingroup coefficient_storage
+/// @brief Implementations of the storage API.
+
+//------------------------------------------------------------------
+// CODEC API
+//------------------------------------------------------------------
+
+/// @defgroup codec Codec
+///
+/// @ingroup api_layer
+///
+/// @brief Implements API common to encoding and decoding algorithms.
+
+/// @defgroup codec_api API
+/// @ingroup codec
+/// @brief The common API used by encoding and decoding algorithms.
+
+/// @defgroup codec_layers Layers
+/// @ingroup codec
+/// @brief Implementations of the codec API.
+
+//------------------------------------------------------------------
+// DECODER API
+//------------------------------------------------------------------
+
+/// @defgroup decoder Decoder
+/// @ingroup api_layer
+/// @brief Implements decoding API.
+
+/// @defgroup decoder_api API
+/// @ingroup decoder
+/// @brief The API used by the decoding algorithms.
+
+/// @defgroup decoder_layers Layers
+/// @ingroup decoder
+/// @brief Implementations of the decoder API.
+
+//------------------------------------------------------------------
+// ENCODER API
+//------------------------------------------------------------------
+
+/// @defgroup encoder Encoder
+/// @ingroup api_layer
+/// @brief Implements decoding API.
+
+/// @defgroup encoder_api API
+/// @ingroup encoder
+/// @brief The API used by the encoding algorithms.
+
+/// @defgroup encoder_layers Layers
+/// @ingroup encoder
+/// @brief Implementations of the encoder API.
+
+//------------------------------------------------------------------
+// CODEC HEADER API
+//------------------------------------------------------------------
+
+/// @defgroup codec_header Codec Header
+/// @ingroup api_layer
+/// @brief Implements header information to the coding symbols.
+
+/// @defgroup codec_header_api API
+/// @ingroup codec_header
+/// @brief The API used by encoding and decoding algorithms.
+
+/// @defgroup codec_header_layers Layers
+/// @ingroup codec_header
+/// @brief Implementations of the codec API.
+
+//------------------------------------------------------------------
+// PAYLOAD CODEC
+//------------------------------------------------------------------
+
+/// @defgroup payload_codec Payload Codec
+/// @ingroup api_layer
+/// @brief The payload layer provides users of an encoder or decoder with a
+/// convenient API.
+///
+/// Creating a layer implementing the payload API makes it possible to extend
+/// encoders and decoders with functionality not necessarily requiring direct
+/// access to the symbol id and coded symbol.
+///
+/// The payload layer also provides a user of an encoder/decoder with a
+/// convenient API. Using the payload layer API the user only provides a single
+/// memory buffer, as shown in the following example for an encoder:
+///
+/// \code
+/// std::vector<uint8_t> payload(encoder->payload_size());
+/// uint32_t bytes_used = encoder->encode(payload.data());
+/// \endcode
+///
+/// Splitting the payload buffer
+/// In order to use the payload layer one must also provide the
+/// functionality to split the provided payload buffer into a
+/// symbol header and symbol buffer, which are used by the
+/// \ref codec_header_api.
+///
+
+/// @defgroup payload_codec_api API
+/// @ingroup payload_codec
+/// @brief The API used by payload codecs.
+
+/// @defgroup payload_codec_layers Layers
+/// @ingroup payload_codec
+/// @brief Implementations of the codec API.
+
+
+//------------------------------------------------------------------
+// TYPE REQUIREMENTS
+//------------------------------------------------------------------
+
+/// @defgroup type_requirements Type requirements
+/// @brief The type requirements for different template arguments
+
+//------------------------------------------------------------------
+// OBJECT_DATA
+//------------------------------------------------------------------
+
+/// @defgroup object_data ObjectData
+/// @ingroup type_requirements
+/// @brief The type requirements for the object data type
+
+/// @defgroup object_data_type Type Requirement
+/// @ingroup object_data
+/// @brief The type requirements for an ObjectData type.
+///
+/// Besides the functions mentioned here the ObjectData type
+/// must be CopyConstructable
+
+/// @defgroup object_data_implementation Implementations
+/// @ingroup object_data
+/// @brief Implementations of the ObjectData type.
+
+//------------------------------------------------------------------
+// BLOCK_PARTITIONING
+//------------------------------------------------------------------
+
+/// @defgroup block_partitioning BlockPartitioning
+/// @ingroup type_requirements
+/// @brief The type requirements for the block partitioning type
+
+/// @defgroup block_partitioning_type Type Requirement
+/// @ingroup block_partitioning
+/// @brief The type requirements for a BlockPartitioning type.
+///
+/// Besides the functions mentioned here the BlockPartitioning type
+/// must be CopyConstructable
+
+/// @defgroup block_partitioning_implementation Implementations
+/// @ingroup block_partitioning
+/// @brief Implementations of the BlockPartitioning type.
+
+//------------------------------------------------------------------
+// TYPE TRAITS
+//------------------------------------------------------------------
+
+/// @defgroup type_traits Type traits for generic programming
+/// @brief The type traits are useful for compile time enabling or
+///        disabling a specific code paths
+
+//------------------------------------------------------------------
+// GENERIC API
+//------------------------------------------------------------------
+
+/// @defgroup generic_api Generic API functions
+/// @brief The generic API functions are functions that makes it easier to
+///        build programs that compile time can enable or disable call to
+///        various functions.
+
+//------------------------------------------------------------------
+// UTILITY
+//------------------------------------------------------------------
+
+/// @defgroup utility General utility functionality
+///
+/// @brief Utilitiy or helper classes that implement some reusable and
+///        generic functionality.
+
+//------------------------------------------------------------------
+// FEEDBACK
+//------------------------------------------------------------------
+
+/// @defgroup feedback Feedback
+/// @ingroup api_layer
+///
+/// @brief The Feedback API functions are functions implementing a
+///        convenience API for sending feedback e.g. state information
+///        between encoders and decoders. The feedback information may
+///        then by utilized to optimize different aspects of the
+///        coding.
+
+/// @defgroup feedback_api API
+/// @ingroup feedback
+/// @brief The API used by the feedback layers
+
+/// @defgroup feedback_layers Layers
+/// @ingroup feedback
+/// @brief Implementations of the feedback API.
+
+
+//------------------------------------------------------------------
+// STATE
+//------------------------------------------------------------------
+
+/// @defgroup state State
+/// @ingroup api_layer
+///
+/// @brief The state API functions are functions provides information
+///        about the state of "remote" entities in the
+///        system. E.g. this could be the rank of a decoder or
+///        similar.
+
+/// @defgroup state_api API
+/// @ingroup state
+/// @brief The API used by the state layers
+
+/// @defgroup state_layers Layers
+/// @ingroup state
+/// @brief Implementations of the state API.
+
+//------------------------------------------------------------------
+// TRACE
+//------------------------------------------------------------------
+
+/// @defgroup trace Trace
+/// @ingroup api_layer
+///
+/// @brief The trace API functions are functions that provide a way to
+///        trace codec stacks.
+
+/// @defgroup trace_api API
+/// @ingroup trace
+/// @brief The API used by the trace layers
+
+/// @defgroup trace_layers Layers
+/// @ingroup trace
+/// @brief Implementations of the trace API.
+
+//------------------------------------------------------------------
+// OBJECT
+//------------------------------------------------------------------
+
+/// @defgroup object Object
+/// @ingroup api_layer
+///
+/// @brief The object layers are used to implement stacks capable of
+///        encoding/decoding multiple blocks of data (such as large
+///        memory buffers or files).
+///
+/// @defgroup object_layers Layers
+/// @ingroup object
+/// @brief Implementations of the object API.

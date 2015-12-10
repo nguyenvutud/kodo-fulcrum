@@ -1,0 +1,141 @@
+// Copyright Steinwurf ApS 2015.
+// Distributed under the "STEINWURF RESEARCH LICENSE 1.0".
+// See accompanying file LICENSE.rst or
+// http://www.steinwurf.com/licensing
+
+/// @brief Doxygen dummy class specifying the API available for decoders
+class decoder_api
+{
+public:
+
+    //------------------------------------------------------------------
+    // DECODER API
+    //------------------------------------------------------------------
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @brief The rank of a decoder states how many symbols have been
+    ///        partially or fully decoded.
+    ///
+    /// This number is also equivalent to the number of pivot elements we
+    /// have in our decoding matrix.
+    ///
+    /// @return the rank of the decoder
+    uint32_t rank() const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @brief The symbol pivot indicates whether a symbol is partially or
+    ///        fully decoded.
+    ///
+    /// @return True if the symbol is available.
+    bool is_symbol_pivot(uint32_t index) const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @brief Decodes an encoded symbol according to the coding
+    ///        coefficients.
+    ///
+    /// Both buffers may be modified during this call. The reason for this
+    /// is that the decoder, for performance reasons, will directly operate
+    /// on the provided memory.
+    ///
+    /// @param symbol_data Buffer representing an encoded symbol.
+    ///
+    /// @param coefficients The coding coefficients used to
+    ///        create the encoded symbol
+    void read_symbol(uint8_t* symbol_data, uint8_t* coefficients);
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @brief The decode function for systematic symbols i.e. a specific
+    ///        uncoded symbols.
+    ///
+    /// @param symbol_data Buffer containing the systematic symbol's data.
+    ///
+    /// @param index The index of the systematic symbol in the decoding
+    ///        matrix.
+    void read_symbol(uint8_t* symbol_data, uint32_t index);
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @brief Check whether decoding is complete. This happens when the
+    ///        decoding matrix has full rank.
+    ///
+    /// @return true if decoding is complete.
+    bool is_complete() const;
+
+    /// @ingroup decoder_api internal_api
+    ///
+    /// Specifies that the decoder has no knowledge about a specific symbol.
+    ///
+    /// @param index Index of the symbol whose state should be changed.
+    void set_symbol_missing(uint32_t index);
+
+    /// @ingroup decoder_api internal_api
+    ///
+    /// Specifies that the decoder has partially decoded a specific symbol.
+    /// This implies that the decoder has knowledge about that symbol.
+    /// If the decoder uses Gaussian elimination it means that the symbol
+    /// has been inserted as pivot in the decoding matrix.
+    ///
+    /// @param index Index of the symbol whose state should be changed.
+    void set_symbol_partially_decoded(uint32_t index);
+
+    /// @ingroup decoder_api internal_api
+    ///
+    /// Specifies that the decoder has fully decoded a specific symbol.
+    ///
+    /// @param index Index of the symbol whose state should be changed.
+    void set_symbol_uncoded(uint32_t index);
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @param index Index of the symbol whose state should be checked.
+    ///
+    /// @return True if the symbol is missing otherwise false.
+    bool is_symbol_missing(uint32_t index) const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @param index Index of the symbol whose state should be checked.
+    ///
+    /// @return True if the symbol has been partially decoded otherwise false.
+    bool is_symbol_partially_decoded(uint32_t index) const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// Returns whether the symbol is uncoded or not. This may return false
+    /// for symbols that are actually uncoded - but never true for symbols
+    /// that are not uncoded. As with the layer::symbols_uncoded() function
+    /// the reason for this is that some algorithms do not, for performance
+    /// reasons, keep track of the exact status of the decoding matrix.
+    ///
+    /// @param index  Index of the symbol to check.
+    ///
+    /// @return True if the symbol is uncoded, and otherwise false.
+    bool is_symbol_uncoded(uint32_t index) const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @return The number of missing symbols at the decoder
+    uint32_t symbols_missing() const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// @return The number of partially decoded symbols at the decoder
+    uint32_t symbols_partially_decoded() const;
+
+    /// @ingroup decoder_api public_api
+    ///
+    /// Returns the number of uncoded symbols currently known. Depending on
+    /// the algorithm used the true number of uncoded symbols may be higher.
+    ///
+    /// The reason for this uncertainty is that some algorithms do not keep
+    /// track of the exact status of the decoding matrix for performance
+    /// reasons. It is however guaranteed that at least this amount of
+    /// uncoded symbols exists.
+    ///
+    /// @return The number of uncoded symbols at the decoder
+    uint32_t symbols_uncoded() const;
+};

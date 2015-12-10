@@ -1,0 +1,55 @@
+// Copyright Steinwurf ApS 2015.
+// Distributed under the "STEINWURF RESEARCH LICENSE 1.0".
+// See accompanying file LICENSE.rst or
+// http://www.steinwurf.com/licensing
+
+/// @brief Doxygen dummy class specifying the API available at encoders
+class encoder_api
+{
+public:
+
+    //------------------------------------------------------------------
+    // ENCODER API
+    //------------------------------------------------------------------
+
+    /// @ingroup encoder_api public_api
+    ///
+    /// The rank of an encoder states how many symbols are available for
+    /// encoding.
+    ///
+    /// @return the rank of the encoder
+    uint32_t rank() const;
+
+    /// @ingroup encoder_api public_api
+    ///
+    /// The symbol pivot indicates whether a symbol is available. A
+    /// coefficient generator may use this information when generating
+    /// coding coefficients.
+    ///
+    /// @return True if the symbol is available.
+    bool is_symbol_pivot(uint32_t index) const;
+
+    /// @ingroup encoder_api public_api
+    ///
+    /// Encodes a symbol according to the symbol coefficients
+    ///
+    /// @param symbol_data The destination buffer for the encoded symbol
+    ///
+    /// @param coefficients At this point the symbol id should be
+    ///        initialized with the desired coding coefficients.
+    ///
+    /// @return The number of bytes used.
+    uint32_t write_symbol(uint8_t* symbol_data, uint8_t* coefficients);
+
+    /// @ingroup encoder_api public_api
+    ///
+    /// The encode function for systematic packets i.e. specific uncoded
+    /// symbols.
+    ///
+    /// @param symbol_data The destination of the uncoded source symbol.
+    ///
+    /// @param index The index of this uncoded symbol in the data block.
+    ///
+    /// @return The number of bytes used.
+    uint32_t write_symbol(uint8_t* symbol_data, uint32_t index);
+};

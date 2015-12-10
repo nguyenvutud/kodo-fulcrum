@@ -1,0 +1,7 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+bld.program(features='cxx',
+            source='encode_decode_fulcrum.cpp',
+            target='encode_decode_fulcrum',
+            use=['kodo_fulcrum_includes'])

@@ -1,0 +1,20 @@
+
+/// @defgroup fec_stacks FEC Stacks
+/// @brief The ready assembled stacks the functionality in a stack is
+///        typically some type of FEC code e.g. Network Code or
+///        Reed-Solomon code.
+
+/// @defgroup object_fec_stacks Object FEC Stacks
+///
+/// @brief The ready assembled stacks which allow entire objects, such
+///        as files or large memory buffers, to be encoded/decoded.
+
+/// @defgroup debug Debug Functionality
+/// @brief Layers / stacks that implements various debugging functionalities.
+///        Typically useful when implementing new codes or when monitoring
+///        the performance of the coding algorithms.
+
+/// @defgroup empty Empty Implementations
+/// @brief Layers that provide an empty implementation of a specific API. This
+///        is useful when writing unit-test, but can also be used if a specific
+///        API must be provided but remains unused by the implementation.

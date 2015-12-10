@@ -1,0 +1,29 @@
+// Copyright Steinwurf ApS 2014.
+// Distributed under the "STEINWURF RESEARCH LICENSE 1.0".
+// See accompanying file LICENSE.rst or
+// http://www.steinwurf.com/licensing
+
+/// @brief Doxygen dummy class specifying the template types used in the
+class layer_types
+{
+public:
+
+    /// The next layer in the stack
+    class SuperCoder
+    { };
+
+    /// The field type that should be used. The fifi library exposes the
+    /// following fifi::binary, fifi::binary4, fifi::binary8,
+    /// fifi::binary16 and fifi::prime2325.
+    class FieldType
+    { };
+
+    /// Controls whether tracing should be enabled by setting it
+    /// to kodo::enable_trace
+    class TraceTag
+    { };
+
+    /// A fully defined stack which should be nested
+    class NestedStack
+    { };
+};
