@@ -33,10 +33,7 @@ Documentation
 To get started, see the manual here:
 http://kodo-docs.steinwurf.com
 
-The Doxygen API documentation will be available here (currently unavailable):
-http://bongo.steinwurf.com/files/private/doxygen/kodo/master/html/index.html
-
-You can generate the Doxygen documentation locally if run doxygen in the ``doxygen``
-folder of the kodo repository. You can install Doxygen using your package manager
-(on Linux) or download the binary distribution for Windows and Mac from here:
-http://www.doxygen.nl/download.html#latestsrc
+You can generate the Doxygen documentation locally if run doxygen in the
+``doxygen`` folder of this repository. You can install Doxygen using your
+package manager (on Linux) or download the binary distribution for Windows
+and Mac from here: http://www.doxygen.nl/download.html#latestsrc
