@@ -6,5 +6,9 @@ detailed list of every change, see the Git log.
 
 Latest
 ------
-* Initial commit based on Kodo 34.0.0
+* tbd
+
+1.0.0
+-----
+* Initial release based on Kodo 34.0.0
 
