@@ -12,20 +12,18 @@
 
 #include <meta/not_found.hpp>
 
-#include <kodo/enable_trace.hpp>
-#include <kodo/has_set_trace_callback.hpp>
-#include <kodo/has_set_trace_off.hpp>
-#include <kodo/has_set_trace_stdout.hpp>
-#include <kodo/has_set_zone_prefix.hpp>
-#include <kodo/set_trace_callback.hpp>
-#include <kodo/set_trace_off.hpp>
-#include <kodo/set_trace_stdout.hpp>
-#include <kodo/set_zone_prefix.hpp>
-#include <kodo/trace_callback_function.hpp>
+#include <kodo_core/enable_trace.hpp>
+#include <kodo_core/has_set_trace_callback.hpp>
+#include <kodo_core/has_set_trace_off.hpp>
+#include <kodo_core/has_set_trace_stdout.hpp>
+#include <kodo_core/has_set_zone_prefix.hpp>
+#include <kodo_core/set_trace_callback.hpp>
+#include <kodo_core/set_trace_off.hpp>
+#include <kodo_core/set_trace_stdout.hpp>
+#include <kodo_core/set_zone_prefix.hpp>
+#include <kodo_core/trace_callback_function.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// Fall-through case for the case where TraceTag is meta::not_found
     template<class TraceTag, class SuperCoder>
@@ -47,7 +45,7 @@ namespace fulcrum
     /// coming from which stack.
     ///
     template<class SuperCoder>
-    class trace_fulcrum_two_stage_decoder<enable_trace, SuperCoder> :
+    class trace_fulcrum_two_stage_decoder<kodo_core::enable_trace, SuperCoder> :
         public SuperCoder
     {
     public:
@@ -67,18 +65,19 @@ namespace fulcrum
         /// the stage one and stage two decoders.
         ///
         /// @copydoc layer::set_trace_callback(const trace_callback_function&)
-        void set_trace_callback(const trace_callback_function& callback)
+        void set_trace_callback(
+            const kodo_core::trace_callback_function& callback)
         {
-            if (kodo::has_set_trace_callback<stage_one_decoder_type>::value)
+            if (kodo_core::has_set_trace_callback<stage_one_decoder_type>::value)
             {
-                kodo::set_trace_callback(SuperCoder::stage_one_decoder(),
-                                         callback);
+                kodo_core::set_trace_callback(SuperCoder::stage_one_decoder(),
+                                              callback);
             }
 
-            if (kodo::has_set_trace_callback<stage_two_decoder_type>::value)
+            if (kodo_core::has_set_trace_callback<stage_two_decoder_type>::value)
             {
-                kodo::set_trace_callback(SuperCoder::stage_two_decoder(),
-                                         callback);
+                kodo_core::set_trace_callback(SuperCoder::stage_two_decoder(),
+                                              callback);
             }
 
             prefix_stage_decoders();
@@ -91,14 +90,14 @@ namespace fulcrum
         /// @copydoc layer::set_trace_stdout()
         void set_trace_stdout()
         {
-            if (kodo::has_set_trace_stdout<stage_one_decoder_type>::value)
+            if (kodo_core::has_set_trace_stdout<stage_one_decoder_type>::value)
             {
-                kodo::set_trace_stdout(SuperCoder::stage_one_decoder());
+                kodo_core::set_trace_stdout(SuperCoder::stage_one_decoder());
             }
 
-            if (kodo::has_set_trace_stdout<stage_two_decoder_type>::value)
+            if (kodo_core::has_set_trace_stdout<stage_two_decoder_type>::value)
             {
-                kodo::set_trace_stdout(SuperCoder::stage_two_decoder());
+                kodo_core::set_trace_stdout(SuperCoder::stage_two_decoder());
             }
 
             prefix_stage_decoders();
@@ -111,14 +110,14 @@ namespace fulcrum
         /// @copydoc layer::set_trace_off()
         void set_trace_off()
         {
-            if (kodo::has_set_trace_off<stage_one_decoder_type>::value)
+            if (kodo_core::has_set_trace_off<stage_one_decoder_type>::value)
             {
-                kodo::set_trace_off(SuperCoder::stage_one_decoder());
+                kodo_core::set_trace_off(SuperCoder::stage_one_decoder());
             }
 
-            if (kodo::has_set_trace_off<stage_two_decoder_type>::value)
+            if (kodo_core::has_set_trace_off<stage_two_decoder_type>::value)
             {
-                kodo::set_trace_off(SuperCoder::stage_two_decoder());
+                kodo_core::set_trace_off(SuperCoder::stage_two_decoder());
             }
 
             SuperCoder::set_trace_off();
@@ -148,18 +147,19 @@ namespace fulcrum
             // If there is a zone prefix make the glue "."
             auto glue = zone_prefix.empty() ? "" : ".";
 
-            if (kodo::has_set_zone_prefix<stage_one_decoder_type>::value)
+            if (kodo_core::has_set_zone_prefix<stage_one_decoder_type>::value)
             {
-                kodo::set_zone_prefix(SuperCoder::stage_one_decoder(),
-                                      zone_prefix + glue + "stage_one_decoder");
+                kodo_core::set_zone_prefix(
+                    SuperCoder::stage_one_decoder(),
+                    zone_prefix + glue + "stage_one_decoder");
             }
 
-            if (kodo::has_set_zone_prefix<stage_two_decoder_type>::value)
+            if (kodo_core::has_set_zone_prefix<stage_two_decoder_type>::value)
             {
-                kodo::set_zone_prefix(SuperCoder::stage_two_decoder(),
-                                      zone_prefix + glue + "stage_two_decoder");
+                kodo_core::set_zone_prefix(
+                    SuperCoder::stage_two_decoder(),
+                    zone_prefix + glue + "stage_two_decoder");
             }
         }
     };
-}
 }

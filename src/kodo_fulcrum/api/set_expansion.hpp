@@ -8,13 +8,11 @@
 #include <cstdint>
 #include <cassert>
 
-#include <kodo/api/final_interface.hpp>
+#include <kodo_core/api/final_interface.hpp>
 
 #include "fulcrum_config_interface.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -22,14 +20,13 @@ namespace api
     ///
     /// @param stack The final stack interface of the stack we call
     ///              layer::set_expansion() on
-    inline void set_expansion(kodo::api::final_interface* stack,
-        uint32_t expansion)
+    inline void set_expansion(kodo_core::api::final_interface* stack,
+                              uint32_t expansion)
     {
         auto api = dynamic_cast<fulcrum_config_interface*>(stack);
 
         assert(api);
         api->set_expansion(expansion);
     }
-}
 }
 }

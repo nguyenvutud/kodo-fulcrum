@@ -31,8 +31,8 @@ int main()
     uint32_t symbol_size = 160;
 
     // Define the fulcrum encoder/decoder types that we will use
-    using encoder_type = kodo::fulcrum::fulcrum_encoder<fifi::binary8>;
-    using decoder_type = kodo::fulcrum::fulcrum_combined_decoder<fifi::binary8>;
+    using encoder_type = kodo_fulcrum::fulcrum_encoder<fifi::binary8>;
+    using decoder_type = kodo_fulcrum::fulcrum_combined_decoder<fifi::binary8>;
 
     // In the following we will make an encoder/decoder factory.
     // The factories are used to build actual encoders/decoders

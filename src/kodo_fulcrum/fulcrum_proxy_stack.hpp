@@ -5,13 +5,11 @@
 
 #pragma once
 
-#include <kodo/proxy_stack.hpp>
+#include <kodo_core/proxy_stack.hpp>
 
 #include "fulcrum_nested_stack.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup utility
     ///
@@ -43,7 +41,6 @@ namespace fulcrum
         template <class...> class NestedStack,
         class SuperCoder
     >
-    using fulcrum_proxy_stack = proxy_stack<
+    using fulcrum_proxy_stack = kodo_core::proxy_stack<
         fulcrum_nested_stack, Args, NestedStack, SuperCoder>;
-}
 }

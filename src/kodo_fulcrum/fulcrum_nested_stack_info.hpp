@@ -8,9 +8,7 @@
 #include <cstdint>
 #include <cassert>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @brief This class provides the functions needed by the
     ///        nested_stack layer to correctly initialize a fulcum
@@ -100,5 +98,4 @@ namespace fulcrum
         /// Stores the size of a symbol in the nested stack
         uint32_t m_nested_symbol_size;
     };
-}
 }

@@ -5,13 +5,11 @@
 
 #pragma once
 
-#include <kodo/nested_stack.hpp>
+#include <kodo_core/nested_stack.hpp>
 
 #include "fulcrum_nested_stack_info.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup utility
     ///
@@ -33,7 +31,6 @@ namespace fulcrum
         class SuperCoder
     >
     using fulcrum_nested_stack =
-        nested_stack<NestedStack,
+        kodo_core::nested_stack<NestedStack,
         fulcrum_nested_stack_info<SuperCoder>>;
-}
 }

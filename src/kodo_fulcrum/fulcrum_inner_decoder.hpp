@@ -5,22 +5,20 @@
 
 #pragma once
 
-#include <kodo/trace_layer.hpp>
-#include <kodo/nested_read_payload.hpp>
-#include <kodo/nested_payload_size.hpp>
-#include <kodo/nested_decoder_api.hpp>
-#include <kodo/trace_nested_stack.hpp>
+#include <kodo_core/nested_decoder_api.hpp>
+#include <kodo_core/nested_payload_size.hpp>
+#include <kodo_core/nested_read_payload.hpp>
+#include <kodo_core/trace_layer.hpp>
+#include <kodo_core/trace_nested_stack.hpp>
 
 #include <kodo_rlnc/shallow_full_vector_decoder.hpp>
 
-#include "fulcrum_info.hpp"
-#include "fulcrum_nested_stack.hpp"
 #include "fulcrum_expansion_storage.hpp"
+#include "fulcrum_info.hpp"
 #include "fulcrum_nested_inner_decoder.hpp"
+#include "fulcrum_nested_stack.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup fec_stacks
     ///
@@ -52,28 +50,28 @@ namespace fulcrum
         fulcrum_nested_inner_decoder<
         // Storage API
         fulcrum_expansion_storage<
-        deep_symbol_storage<
-        storage_bytes_used<
-        storage_block_info<
+        kodo_core::deep_symbol_storage<
+        kodo_core::storage_bytes_used<
+        kodo_core::storage_block_info<
         // Finite Field API
-        finite_field_info<Field,
+        kodo_core::finite_field_info<Field,
         // Fulcrum API
-        nested_read_payload<
-        nested_payload_size<
-        nested_decoder_api<
-        trace_nested_stack<find_enable_trace<Features>,
-        fulcrum_nested_stack<rlnc::shallow_full_vector_decoder<Field, Features>,
+        kodo_core::nested_read_payload<
+        kodo_core::nested_payload_size<
+        kodo_core::nested_decoder_api<
+        kodo_core::trace_nested_stack<kodo_core::find_enable_trace<Features>,
+        fulcrum_nested_stack<
+            kodo_rlnc::shallow_full_vector_decoder<Field, Features>,
         fulcrum_info<
             std::integral_constant<uint32_t,10>, // MaxExpansion
             std::integral_constant<uint32_t,4>,  // DefaultExpansion
         // Trace Layer
-        trace_layer<find_enable_trace<Features>,
+        kodo_core::trace_layer<kodo_core::find_enable_trace<Features>,
         // Final Layer
-        final_layer
+        kodo_core::final_layer
         >>>>>>>>>>>>>
     {
     public:
-        using factory = pool_factory<fulcrum_inner_decoder>;
+        using factory = kodo_core::pool_factory<fulcrum_inner_decoder>;
     };
-}
 }

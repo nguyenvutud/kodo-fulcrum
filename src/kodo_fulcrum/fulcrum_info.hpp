@@ -9,9 +9,7 @@
 
 #include <fifi/binary.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup fulcrum
     ///
@@ -135,5 +133,4 @@ namespace fulcrum
         /// The total number of symbols in the inner code
         uint32_t m_inner_symbols;
     };
-}
 }

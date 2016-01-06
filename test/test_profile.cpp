@@ -8,7 +8,7 @@
 
 #include <boost/program_options.hpp>
 
-#include <kodo_unit_test/test_profile.hpp>
+#include <kodo_core_unit_test/test_profile.hpp>
 
 static test_profile current_profile = test_profile::desktop;
 

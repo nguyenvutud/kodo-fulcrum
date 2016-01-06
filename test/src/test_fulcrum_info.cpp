@@ -42,7 +42,7 @@ namespace
 
     template<class MaxExpansion, class DefaultExpansion>
     class dummy_stack : public
-        kodo::fulcrum::fulcrum_info<MaxExpansion, DefaultExpansion, dummy_layer>
+        kodo_fulcrum::fulcrum_info<MaxExpansion, DefaultExpansion, dummy_layer>
     {
     public:
 

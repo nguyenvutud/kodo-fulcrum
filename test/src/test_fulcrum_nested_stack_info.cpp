@@ -7,7 +7,7 @@
 
 #include <kodo_fulcrum/fulcrum_nested_stack_info.hpp>
 
-namespace kodo
+namespace kodo_fulcrum
 {
     // Put dummy layers and tests classes in an anonymous namespace
     // to avoid violations of ODF (one-definition-rule) in other
@@ -60,7 +60,7 @@ namespace kodo
 
         template<uint32_t MaxExpansion>
         class dummy_stack : public
-            fulcrum::fulcrum_nested_stack_info<dummy_layer<MaxExpansion>>
+            fulcrum_nested_stack_info<dummy_layer<MaxExpansion>>
         { };
     }
 }
@@ -71,7 +71,7 @@ TEST(test_fulcrum_nested_stack_info, api)
     uint32_t max_symbols = 10;
     uint32_t max_symbol_size = 10;
 
-    using test_stack = kodo::dummy_stack<max_expansion>;
+    using test_stack = kodo_fulcrum::dummy_stack<max_expansion>;
 
     test_stack::config factory(max_symbols, max_symbol_size);
 

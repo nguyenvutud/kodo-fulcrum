@@ -8,9 +8,7 @@
 #include <cstdint>
 #include <cassert>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup decoder_layers
     ///
@@ -94,5 +92,4 @@ namespace fulcrum
             }
         }
     };
-}
 }

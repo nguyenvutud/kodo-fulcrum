@@ -24,7 +24,7 @@ namespace
         stub::call<dummy_stack*()> stack;
     };
 
-    using stack = kodo::fulcrum::api::fulcrum_nested_stack_binding<dummy>;
+    using stack = kodo_fulcrum::api::fulcrum_nested_stack_binding<dummy>;
 }
 
 TEST(api_test_fulcrum_nested_stack_binding, nested_symbols)

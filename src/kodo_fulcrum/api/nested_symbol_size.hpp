@@ -9,11 +9,9 @@
 #include <cassert>
 
 #include "fulcrum_nested_stack_interface.hpp"
-#include <kodo/api/final_interface.hpp>
+#include <kodo_core/api/final_interface.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -21,12 +19,11 @@ namespace api
     ///
     /// @param stack The final_interface of the stack we call
     ///        layer::nested_symbol_size() on
-    inline uint32_t nested_symbol_size(kodo::api::final_interface* stack)
+    inline uint32_t nested_symbol_size(kodo_core::api::final_interface* stack)
     {
         auto api = dynamic_cast<fulcrum_nested_stack_interface*>(stack);
         assert(api);
         return api->nested_symbol_size();
     }
-}
 }
 }

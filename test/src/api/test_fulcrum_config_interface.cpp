@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <stub/call.hpp>
 
-#include <kodo/api/final_interface.hpp>
+#include <kodo_core/api/final_interface.hpp>
 #include <kodo_fulcrum/api/max_expansion.hpp>
 #include <kodo_fulcrum/api/set_expansion.hpp>
 #include <kodo_fulcrum/api/max_inner_symbols.hpp>
@@ -18,7 +18,8 @@
 namespace
 {
     struct dummy :
-        kodo::api::final_interface, kodo::fulcrum::api::fulcrum_config_interface
+        kodo_core::api::final_interface, 
+        kodo_fulcrum::api::fulcrum_config_interface
     {
         uint32_t max_expansion() const override
         {
@@ -46,16 +47,16 @@ TEST(api_test_fulcrum_config_interface, max_expansion)
     dummy d;
     d.m_max_expansion.set_return({0U, 42U});
 
-    EXPECT_EQ(0U, kodo::fulcrum::api::max_expansion(&d));
-    EXPECT_EQ(42U, kodo::fulcrum::api::max_expansion(&d));
+    EXPECT_EQ(0U, kodo_fulcrum::api::max_expansion(&d));
+    EXPECT_EQ(42U, kodo_fulcrum::api::max_expansion(&d));
 }
 
 TEST(api_test_fulcrum_config_interface, set_expansion)
 {
     dummy d;
 
-    kodo::fulcrum::api::set_expansion(&d, 0U);
-    kodo::fulcrum::api::set_expansion(&d, 42U);
+    kodo_fulcrum::api::set_expansion(&d, 0U);
+    kodo_fulcrum::api::set_expansion(&d, 42U);
 
     EXPECT_TRUE(d.m_set_expansion.expect_calls()
                 .with(0U)
@@ -68,6 +69,6 @@ TEST(api_test_fulcrum_config_interface, max_inner_symbols)
     dummy d;
     d.m_max_inner_symbols.set_return({0U, 42U});
 
-    EXPECT_EQ(0U, kodo::fulcrum::api::max_inner_symbols(&d));
-    EXPECT_EQ(42U, kodo::fulcrum::api::max_inner_symbols(&d));
+    EXPECT_EQ(0U, kodo_fulcrum::api::max_inner_symbols(&d));
+    EXPECT_EQ(42U, kodo_fulcrum::api::max_inner_symbols(&d));
 }
