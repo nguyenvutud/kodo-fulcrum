@@ -8,9 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup utility fulcrum
     ///
@@ -72,5 +70,4 @@ namespace fulcrum
         /// Coefficients use for the outer code
         std::vector<uint8_t> m_temp_coefficients;
     };
-}
 }

@@ -5,20 +5,18 @@
 
 #pragma once
 
-#include <kodo/coefficient_info.hpp>
-#include <kodo/final_layer.hpp>
-#include <kodo/finite_field_info.hpp>
-#include <kodo/payload_info.hpp>
-#include <kodo/plain_symbol_id_reader.hpp>
-#include <kodo/pool_factory.hpp>
-#include <kodo/proxy_layer.hpp>
-#include <kodo/storage_block_info.hpp>
-#include <kodo/symbol_id_decoder.hpp>
-#include <kodo/systematic_decoder_layers.hpp>
+#include <kodo_core/coefficient_info.hpp>
+#include <kodo_core/final_layer.hpp>
+#include <kodo_core/finite_field_info.hpp>
+#include <kodo_core/payload_info.hpp>
+#include <kodo_core/plain_symbol_id_reader.hpp>
+#include <kodo_core/pool_factory.hpp>
+#include <kodo_core/proxy_layer.hpp>
+#include <kodo_core/storage_block_info.hpp>
+#include <kodo_core/symbol_id_decoder.hpp>
+#include <kodo_core/systematic_decoder_layers.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup utility fulcrum
     ///
@@ -42,26 +40,25 @@ namespace fulcrum
     template<class MainStack>
     class fulcrum_payload_decoder : public
         // Payload API
-        payload_info<
+        kodo_core::payload_info<
         // Codec Header API
-        systematic_decoder_layers<
-        symbol_id_decoder<
+        kodo_core::systematic_decoder_layers<
+        kodo_core::symbol_id_decoder<
         // Symbol ID API
-        plain_symbol_id_reader<
+        kodo_core::plain_symbol_id_reader<
         // Coefficient Storage API
-        coefficient_info<
+        kodo_core::coefficient_info<
         // Storage API
-        storage_block_info<
+        kodo_core::storage_block_info<
         // Finite Field API
-        finite_field_info<fifi::binary,
+        kodo_core::finite_field_info<fifi::binary,
         // Proxy
-        proxy_layer<MainStack,
+        kodo_core::proxy_layer<MainStack,
         // Final layer
-        final_layer
+        kodo_core::final_layer
         >>>>>>>>
     {
     public:
-        using factory = pool_factory<fulcrum_payload_decoder>;
+        using factory = kodo_core::pool_factory<fulcrum_payload_decoder>;
     };
-}
 }

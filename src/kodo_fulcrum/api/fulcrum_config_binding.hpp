@@ -9,9 +9,7 @@
 
 #include <cstdint>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -38,6 +36,5 @@ namespace api
             Super::stack()->set_expansion(expansion);
         }
     };
-}
 }
 }

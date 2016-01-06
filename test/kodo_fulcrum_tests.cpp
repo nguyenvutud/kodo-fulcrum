@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include <kodo_unit_test/test_profile.hpp>
+#include <kodo_core_unit_test/test_profile.hpp>
 
 GTEST_API_ int main(int argc, char** argv)
 {

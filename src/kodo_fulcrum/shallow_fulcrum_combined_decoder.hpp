@@ -7,9 +7,7 @@
 
 #include "fulcrum_combined_decoder.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup fec_stacks
     ///
@@ -38,6 +36,6 @@ namespace fulcrum
     using shallow_fulcrum_combined_decoder = fulcrum_combined_decoder<
         Field,
         meta::typelist<
-            storage_type<tag::mutable_shallow_storage>>::extend<Features>>;
-}
+            kodo_core::storage_type<kodo_core::tag::mutable_shallow_storage>>::
+            extend<Features>>;
 }

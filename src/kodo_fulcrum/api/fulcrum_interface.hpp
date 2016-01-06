@@ -7,9 +7,7 @@
 
 #include <cstdint>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -24,6 +22,5 @@ namespace api
         /// @copydoc layer::inner_symbols() const
         virtual uint32_t inner_symbols() const = 0;
     };
-}
 }
 }

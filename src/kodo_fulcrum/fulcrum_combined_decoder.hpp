@@ -9,21 +9,21 @@
 
 #include <fifi/binary.hpp>
 
-#include <kodo/basic_symbol_decoder.hpp>
-#include <kodo/coefficient_storage_layers.hpp>
-#include <kodo/common_decoder_layers.hpp>
-#include <kodo/elimination_decoder.hpp>
-#include <kodo/final_layer.hpp>
-#include <kodo/finite_field_layers.hpp>
-#include <kodo/nested_payload_size.hpp>
-#include <kodo/nested_read_payload.hpp>
-#include <kodo/pool_factory.hpp>
-#include <kodo/proxy_args.hpp>
-#include <kodo/select_storage_type.hpp>
-#include <kodo/systematic_coefficient_mapper.hpp>
-#include <kodo/trace_layer.hpp>
-#include <kodo/trace_systematic_coefficient_mapper.hpp>
-#include <kodo/uniform_generator.hpp>
+#include <kodo_core/basic_symbol_decoder.hpp>
+#include <kodo_core/coefficient_storage_layers.hpp>
+#include <kodo_core/common_decoder_layers.hpp>
+#include <kodo_core/elimination_decoder.hpp>
+#include <kodo_core/final_layer.hpp>
+#include <kodo_core/finite_field_layers.hpp>
+#include <kodo_core/nested_payload_size.hpp>
+#include <kodo_core/nested_read_payload.hpp>
+#include <kodo_core/pool_factory.hpp>
+#include <kodo_core/proxy_args.hpp>
+#include <kodo_core/select_storage_type.hpp>
+#include <kodo_core/systematic_coefficient_mapper.hpp>
+#include <kodo_core/trace_layer.hpp>
+#include <kodo_core/trace_systematic_coefficient_mapper.hpp>
+#include <kodo_core/uniform_generator.hpp>
 
 #include "fulcrum_info.hpp"
 #include "fulcrum_payload_decoder.hpp"
@@ -31,9 +31,7 @@
 #include "fulcrum_two_stage_decoder.hpp"
 #include "trace_fulcrum_two_stage_decoder.hpp"
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup fec_stacks
     ///
@@ -61,39 +59,40 @@ namespace fulcrum
     >
     class fulcrum_combined_decoder : public
         // Payload API
-        nested_read_payload<
-        nested_payload_size<
-        fulcrum_proxy_stack<proxy_args<>, fulcrum_payload_decoder,
+        kodo_core::nested_read_payload<
+        kodo_core::nested_payload_size<
+        fulcrum_proxy_stack<kodo_core::proxy_args<>, fulcrum_payload_decoder,
         // Codec Header API
         //  - implemented in outer decoder
         // Symbol ID API
         //  - implemented in outer decoder
         // Coefficient Generator API
-        trace_fulcrum_two_stage_decoder<find_enable_trace<Features>,
+        trace_fulcrum_two_stage_decoder<kodo_core::find_enable_trace<Features>,
         fulcrum_two_stage_decoder<
-            elimination_decoder<fifi::binary,
-                typename Features::template remove<is_storage_type>>,
-            basic_symbol_decoder<fifi::binary,
-                typename Features::template remove<is_storage_type>>,
-        trace_systematic_coefficient_mapper<find_enable_trace<Features>,
-        systematic_coefficient_mapper<
-        uniform_generator<
+            kodo_core::elimination_decoder<fifi::binary,
+                typename Features::template remove<kodo_core::is_storage_type>>,
+            kodo_core::basic_symbol_decoder<fifi::binary,
+                typename Features::template remove<kodo_core::is_storage_type>>,
+        kodo_core::trace_systematic_coefficient_mapper<
+            kodo_core::find_enable_trace<Features>,
+        kodo_core::systematic_coefficient_mapper<
+        kodo_core::uniform_generator<
         // Decoder API
-        common_decoder_layers<Features,
+        kodo_core::common_decoder_layers<Features,
         // Coefficient Storage API
-        coefficient_storage_layers<
+        kodo_core::coefficient_storage_layers<
         // Storage API
-        select_storage_type<Features,
+        kodo_core::select_storage_type<Features,
         // Finite Field API
-        finite_field_layers<Field,
+        kodo_core::finite_field_layers<Field,
         // Fulcrum API
         fulcrum_info<
             std::integral_constant<uint32_t,10>, // MaxExpansion
             std::integral_constant<uint32_t,4>,  // DefaultExpansion
         // Trace Layer
-        trace_layer<find_enable_trace<Features>,
+        kodo_core::trace_layer<kodo_core::find_enable_trace<Features>,
         // Final Layer
-        final_layer
+        kodo_core::final_layer
         >>>>>>>>>>>>>>
     {
     public:
@@ -102,7 +101,6 @@ namespace fulcrum
                       "The mapping between inner and outer code requires "
                       "that both are binary extension fields");
 
-        using factory = pool_factory<fulcrum_combined_decoder>;
+        using factory = kodo_core::pool_factory<fulcrum_combined_decoder>;
     };
-}
 }

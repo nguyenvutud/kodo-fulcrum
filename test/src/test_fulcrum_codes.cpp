@@ -9,29 +9,29 @@
 
 #include <gtest/gtest.h>
 
-#include <kodo_unit_test/helper_test_basic_api.hpp>
-#include <kodo_unit_test/helper_test_reuse_api.hpp>
-#include <kodo_unit_test/helper_test_initialize_api.hpp>
-#include <kodo_unit_test/helper_test_systematic_api.hpp>
-#include <kodo_unit_test/helper_test_mix_uncoded_api.hpp>
+#include <kodo_core_unit_test/helper_test_basic_api.hpp>
+#include <kodo_core_unit_test/helper_test_reuse_api.hpp>
+#include <kodo_core_unit_test/helper_test_initialize_api.hpp>
+#include <kodo_core_unit_test/helper_test_systematic_api.hpp>
+#include <kodo_core_unit_test/helper_test_mix_uncoded_api.hpp>
 
 namespace
 {
     template<class Field>
-    using encoder = kodo::fulcrum::fulcrum_encoder<Field>;
+    using encoder = kodo_fulcrum::fulcrum_encoder<Field>;
 
     template<class Field>
-    using inner_decoder = kodo::fulcrum::fulcrum_inner_decoder<Field>;
+    using inner_decoder = kodo_fulcrum::fulcrum_inner_decoder<Field>;
 
     template<class Field>
-    using outer_decoder = kodo::fulcrum::fulcrum_outer_decoder<Field>;
+    using outer_decoder = kodo_fulcrum::fulcrum_outer_decoder<Field>;
 
     template<class Field>
-    using combined_decoder = kodo::fulcrum::fulcrum_combined_decoder<Field>;
+    using combined_decoder = kodo_fulcrum::fulcrum_combined_decoder<Field>;
 
     template<class Field>
     using shallow_combined_decoder =
-        kodo::fulcrum::shallow_fulcrum_combined_decoder<Field>;
+        kodo_fulcrum::shallow_fulcrum_combined_decoder<Field>;
 }
 
 TEST(test_fulcrum_codes, inner)

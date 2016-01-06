@@ -73,20 +73,20 @@ BENCHMARK_OPTION(throughput_options)
 //------------------------------------------------------------------
 
 using setup_fulcrum_inner_throughput = fulcrum_throughput_benchmark<
-    kodo::fulcrum::fulcrum_encoder<fifi::binary8>,
-    kodo::fulcrum::fulcrum_inner_decoder<fifi::binary>>;
+    kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
+    kodo_fulcrum::fulcrum_inner_decoder<fifi::binary>>;
 
 BENCHMARK_F(setup_fulcrum_inner_throughput, FulcrumInner, Binary, 5);
 
 using setup_fulcrum_outer_throughput = fulcrum_throughput_benchmark<
-    kodo::fulcrum::fulcrum_encoder<fifi::binary8>,
-    kodo::fulcrum::fulcrum_outer_decoder<fifi::binary8>>;
+    kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
+    kodo_fulcrum::fulcrum_outer_decoder<fifi::binary8>>;
 
 BENCHMARK_F(setup_fulcrum_outer_throughput, FulcrumOuter, Binary8, 5);
 
 using setup_fulcrum_combined_throughput = fulcrum_throughput_benchmark<
-    kodo::fulcrum::fulcrum_encoder<fifi::binary8>,
-    kodo::fulcrum::fulcrum_combined_decoder<fifi::binary8>>;
+    kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
+    kodo_fulcrum::fulcrum_combined_decoder<fifi::binary8>>;
 
 BENCHMARK_F(setup_fulcrum_combined_throughput, FulcrumCombined, Binary8, 5);
 

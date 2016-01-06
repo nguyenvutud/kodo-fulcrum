@@ -5,11 +5,11 @@
 
 #include <kodo_fulcrum/trace_fulcrum_two_stage_decoder.hpp>
 
-#include <kodo/trace_callback_function.hpp>
+#include <kodo_core/trace_callback_function.hpp>
 
 #include <gtest/gtest.h>
 
-#include <kodo_unit_test/helper_test_trace.hpp>
+#include <kodo_core_unit_test/helper_test_trace.hpp>
 
 // Put dummy layers and tests classes in an anonymous namespace
 // to avoid violations of ODF (one-definition-rule) in other
@@ -17,7 +17,7 @@
 namespace
 {
     template<class DecoderType>
-    class dummy_layer : public kodo::with_trace
+    class dummy_layer : public kodo_core::with_trace
     {
     public:
 
@@ -45,7 +45,7 @@ namespace
 
     template<class DecoderType>
     class test_stack : public
-        kodo::fulcrum::trace_fulcrum_two_stage_decoder<kodo::enable_trace,
+        kodo_fulcrum::trace_fulcrum_two_stage_decoder<kodo_core::enable_trace,
         dummy_layer<DecoderType>>
     { };
 }
@@ -54,35 +54,35 @@ namespace
 /// do not support tracing.
 TEST(test_trace_fulcrum_two_stage_decoder, test_trace_disabled)
 {
-    using stack_type = test_stack<kodo::without_trace>;
+    using stack_type = test_stack<kodo_core::without_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_fulcrum_two_stage_decoder
-    dummy_layer<kodo::without_trace>& layer = stack;
+    dummy_layer<kodo_core::without_trace>& layer = stack;
 
     // Invoke standard trace
     stack.set_trace_stdout();
     EXPECT_EQ(layer.set_trace_stdout.calls(), 1U);
 
     // Invoke trace with callback
-    stack.set_trace_callback(kodo::trace_callback_function());
+    stack.set_trace_callback(kodo_core::trace_callback_function());
     EXPECT_EQ(layer.set_trace_callback.calls(), 1U);
 }
 
 /// Test that the default trace works
 TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_stdout)
 {
-    using stack_type = test_stack<kodo::with_trace>;
+    using stack_type = test_stack<kodo_core::with_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_fulcrum_two_stage_decoder
-    dummy_layer<kodo::with_trace>& layer = stack;
+    dummy_layer<kodo_core::with_trace>& layer = stack;
 
     // Invoke standard trace
     stack.set_trace_stdout();
@@ -100,17 +100,17 @@ TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_stdout)
 /// Test that the trace with callback works
 TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_callback)
 {
-    using stack_type = test_stack<kodo::with_trace>;
+    using stack_type = test_stack<kodo_core::with_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_fulcrum_two_stage_decoder
-    dummy_layer<kodo::with_trace>& layer = stack;
+    dummy_layer<kodo_core::with_trace>& layer = stack;
 
     // Invoke standard trace
-    stack.set_trace_callback(kodo::trace_callback_function());
+    stack.set_trace_callback(kodo_core::trace_callback_function());
     EXPECT_EQ(layer.set_trace_stdout.calls(), 0U);
     EXPECT_EQ(layer.set_trace_callback.calls(), 1U);
 
@@ -125,14 +125,14 @@ TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_callback)
 /// Test that setting the tracing off works
 TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_off)
 {
-    using stack_type = test_stack<kodo::with_trace>;
+    using stack_type = test_stack<kodo_core::with_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_fulcrum_two_stage_decoder
-    dummy_layer<kodo::with_trace>& layer = stack;
+    dummy_layer<kodo_core::with_trace>& layer = stack;
 
     // Set trace off on the main stack
     stack.set_trace_off();
@@ -146,14 +146,14 @@ TEST(test_trace_fulcrum_two_stage_decoder, test_set_trace_off)
 /// Test that the trace layer works and uses the correct zone prefixes
 TEST(test_trace_fulcrum_two_stage_decoder, test_set_zone_prefix)
 {
-    using stack_type = test_stack<kodo::with_trace>;
+    using stack_type = test_stack<kodo_core::with_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_fulcrum_two_stage_decoder
-    dummy_layer<kodo::with_trace>& layer = stack;
+    dummy_layer<kodo_core::with_trace>& layer = stack;
 
     stack.set_trace_stdout();
 
@@ -188,14 +188,14 @@ TEST(test_trace_fulcrum_two_stage_decoder, test_set_zone_prefix)
 /// the set_zone_prefix is called before trace.
 TEST(test_trace_fulcrum_two_stage_decoder, test_set_zone_prefix_first)
 {
-    using stack_type = test_stack<kodo::with_trace>;
+    using stack_type = test_stack<kodo_core::with_trace>;
 
     stack_type stack;
 
     // In this case we get a reference to the test layer since otherwise we
     // cannot access some of the stubs which have the same name as
     // functions in the trace_pure_recoder
-    dummy_layer<kodo::with_trace>& layer = stack;
+    dummy_layer<kodo_core::with_trace>& layer = stack;
 
     std::string zone_prefix = "whoot";
 

@@ -9,9 +9,7 @@
 
 #include <cstdint>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -32,6 +30,5 @@ namespace api
             return Super::stack()->inner_symbols();
         }
     };
-}
 }
 }

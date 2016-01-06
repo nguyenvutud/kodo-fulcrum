@@ -7,9 +7,7 @@
 
 #include <cstdint>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -27,6 +25,5 @@ namespace api
         /// @copydoc layer::set_expansion(uint32_t)
         virtual void set_expansion(uint32_t expansion) = 0;
     };
-}
 }
 }

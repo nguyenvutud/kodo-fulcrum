@@ -8,7 +8,7 @@
 
 #include <kodo_fulcrum/fulcrum_outer_symbol_mapper.hpp>
 
-namespace kodo
+namespace kodo_fulcrum
 {
     // Put dummy layers and tests classes in an anonymous namespace
     // to avoid violations of ODF (one-definition-rule) in other
@@ -36,19 +36,19 @@ namespace kodo
             }
 
             void map_uncoded_to_outer(uint32_t inner_symbol,
-                              uint8_t* outer_coefficients)
+                                      uint8_t* outer_coefficients)
             {
                 m_map_to_outer_index(inner_symbol, outer_coefficients);
             }
 
             void read_symbol(uint8_t* symbol_data,
-                               uint8_t* symbol_coefficients)
+                             uint8_t* symbol_coefficients)
             {
                 m_read_symbol(symbol_data, symbol_coefficients);
             }
 
             void read_uncoded_symbol(uint8_t* symbol_data,
-                               uint32_t symbol_index)
+                                     uint32_t symbol_index)
             {
                 m_read_symbol_index(symbol_data, symbol_index);
             }
@@ -65,7 +65,7 @@ namespace kodo
         };
 
         class dummy_stack : public
-            fulcrum::fulcrum_outer_symbol_mapper<dummy_layer>
+            fulcrum_outer_symbol_mapper<dummy_layer>
         { };
     }
 }
@@ -73,7 +73,7 @@ namespace kodo
 /// Test that read_symbol(uint8_t*,uint8_t*) works as expected
 TEST(test_fulcrum_outer_symbol_mapper, decode_symbol)
 {
-    using stack_type = kodo::dummy_stack;
+    using stack_type = kodo_fulcrum::dummy_stack;
 
     // Setup the factory
     stack_type::config factory;
@@ -83,7 +83,7 @@ TEST(test_fulcrum_outer_symbol_mapper, decode_symbol)
     stack.construct(factory);
     stack.read_symbol((uint8_t*)0xdeadbeef, (uint8_t*)0xdeadbeef);
 
-    kodo::dummy_layer& test_layer = stack;
+    kodo_fulcrum::dummy_layer& test_layer = stack;
     EXPECT_EQ(test_layer.construct.calls(), 1U);
     EXPECT_EQ(stack.m_map_to_outer.calls(), 1U);
     EXPECT_EQ(stack.m_read_symbol.calls(), 1U);
@@ -93,7 +93,7 @@ TEST(test_fulcrum_outer_symbol_mapper, decode_symbol)
 /// systematic packets forward directly to the SuperCoder
 TEST(test_fulcrum_outer_symbol_mapper, decode_symbol_index_systematic)
 {
-    using stack_type = kodo::dummy_stack;
+    using stack_type = kodo_fulcrum::dummy_stack;
 
     // Setup the factory
     stack_type::config factory;
@@ -130,7 +130,7 @@ TEST(test_fulcrum_outer_symbol_mapper, decode_symbol_index_systematic)
 /// systematic outer code
 TEST(test_fulcrum_outer_symbol_mapper, decode_symbol_index_non_systematic)
 {
-    using stack_type = kodo::dummy_stack;
+    using stack_type = kodo_fulcrum::dummy_stack;
 
     // Setup the factory
     stack_type::config factory;

@@ -11,12 +11,12 @@
 
 #include <kodo_fulcrum/fulcrum_two_stage_decoder.hpp>
 
-#include <kodo/elimination_decoder.hpp>
-#include <kodo/basic_symbol_decoder.hpp>
+#include <kodo_core/elimination_decoder.hpp>
+#include <kodo_core/basic_symbol_decoder.hpp>
 
 #include <memory>
 
-namespace kodo
+namespace kodo_fulcrum
 {
     // Put dummy layers and tests classes in an anonymous namespace
     // to avoid violations of ODF (one-definition-rule) in other
@@ -69,7 +69,8 @@ namespace kodo
                 m_read_symbol(symbol_data, coefficients);
             }
 
-            void read_uncoded_symbol(uint8_t* symbol_data, uint32_t symbol_index)
+            void read_uncoded_symbol(uint8_t* symbol_data, 
+                                     uint32_t symbol_index)
             {
                 m_read_symbol_index(symbol_data, symbol_index);
             }
@@ -93,9 +94,9 @@ namespace kodo
         // fulcrum_combined_decoder.
         template<class MaxExpansion>
         class dummy_stack : public
-            fulcrum::fulcrum_two_stage_decoder<
-                elimination_decoder<fifi::binary>,
-                basic_symbol_decoder<fifi::binary>,
+            fulcrum_two_stage_decoder<
+                kodo_core::elimination_decoder<fifi::binary>,
+                kodo_core::basic_symbol_decoder<fifi::binary>,
             dummy_layer<MaxExpansion>>
         { };
     }
@@ -107,7 +108,7 @@ TEST(test_fulcrum_two_stage_decoder, build_nested_decoders)
 {
     const uint32_t max_expansion = 4U;
 
-    using stack_type = kodo::dummy_stack<
+    using stack_type = kodo_fulcrum::dummy_stack<
         std::integral_constant<uint32_t,max_expansion>>;
 
     // In this case we configure it so that we should have a stage one
@@ -141,7 +142,7 @@ TEST(test_fulcrum_two_stage_decoder, route_systematic_symbols)
 {
     using max_expansion = std::integral_constant<uint32_t, 4U>;
 
-    using stack_type = kodo::dummy_stack<max_expansion>;
+    using stack_type = kodo_fulcrum::dummy_stack<max_expansion>;
 
     // In this case we configure it so that we should have a stage one
     // decoder with 4 symbols and a stage two decoder with 8 symbols
@@ -170,7 +171,7 @@ TEST(test_fulcrum_two_stage_decoder, route_systematic_symbols)
     // In order to access the stubs we have to get a reference to the layer
     // otherwise they will be hidden by the member functions with the same
     // names.
-    using stubs_layer = kodo::dummy_layer<max_expansion>;
+    using stubs_layer = kodo_fulcrum::dummy_layer<max_expansion>;
     stubs_layer& stubs = stack;
 
     // Create a buffer for the symbol
@@ -204,7 +205,7 @@ TEST(test_fulcrum_two_stage_decoder, route_non_systematic_symbols)
 {
     using max_expansion = std::integral_constant<uint32_t, 4U>;
 
-    using stack_type = kodo::dummy_stack<max_expansion>;
+    using stack_type = kodo_fulcrum::dummy_stack<max_expansion>;
 
     // In this case we configure it so that we should have a stage one
     // decoder with 4 symbols and a stage two decoder with 8 symbols.
@@ -234,7 +235,7 @@ TEST(test_fulcrum_two_stage_decoder, route_non_systematic_symbols)
     // In order to access the stubs we have to get a reference to the layer
     // otherwise they will be hidden by the member functions with the same
     // names.
-    using stubs_layer = kodo::dummy_layer<max_expansion>;
+    using stubs_layer = kodo_fulcrum::dummy_layer<max_expansion>;
     stubs_layer& stubs = stack;
 
     // Create a buffer for the symbol and the coefficients. The inner code
@@ -305,7 +306,7 @@ TEST(test_fulcrum_two_stage_decoder, combined_rank)
 {
     using max_expansion = std::integral_constant<uint32_t, 2U>;
 
-    using stack_type = kodo::dummy_stack<max_expansion>;
+    using stack_type = kodo_fulcrum::dummy_stack<max_expansion>;
 
     // In this case we configure it so that we should have a stage one
     // decoder with 2 symbols and a stage two decoder with 4 symbols
@@ -334,7 +335,7 @@ TEST(test_fulcrum_two_stage_decoder, combined_rank)
     // In order to access the stubs we have to get a reference to the
     // layer otherwise they will be hidden by the member functions
     // with the same names.
-    using stubs_layer = kodo::dummy_layer<max_expansion>;
+    using stubs_layer = kodo_fulcrum::dummy_layer<max_expansion>;
     stubs_layer& stubs = stack;
 
     // Create a buffer for the symbol

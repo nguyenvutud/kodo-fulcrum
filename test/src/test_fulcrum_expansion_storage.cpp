@@ -3,6 +3,8 @@
 // See accompanying file LICENSE.rst or
 // http://www.steinwurf.com/licensing
 
+#include <kodo_fulcrum/fulcrum_expansion_storage.hpp>
+
 #include <cstdint>
 
 #include <gtest/gtest.h>
@@ -10,104 +12,108 @@
 
 #include <sak/storage.hpp>
 
-#include <kodo_fulcrum/fulcrum_expansion_storage.hpp>
+#include <kodo_core/has_deep_symbol_storage.hpp>
 
-namespace kodo
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
+    // The dummy nested class is used to represent the inner
+    // code.
+    class dummy_nested
     {
-        // The dummy nested class is used to represent the inner
-        // code.
-        class dummy_nested
+    public:
+
+        // Stubs for the member functions
+        stub::call<void(uint32_t,const sak::mutable_storage&)>
+            set_mutable_symbol;
+        stub::call<uint32_t()> symbol_size;
+        stub::call<uint32_t()> symbols;
+    };
+
+    // Dummy SuperCoder layer for the fulcrum_expansion_storage layer
+    class dummy_layer
+    {
+    public:
+
+        using nested_stack_type = dummy_nested;
+
+    public:
+
+        template<class Factory>
+        void construct(Factory& the_factory)
         {
-        public:
+            (void) the_factory;
+        }
 
-            // Stubs for the member functions
-            stub::call<void(uint32_t,const sak::mutable_storage&)>
-                set_mutable_symbol;
-            stub::call<uint32_t()> symbol_size;
-            stub::call<uint32_t()> symbols;
-        };
-
-        // Dummy SuperCoder layer for the fulcrum_expansion_storage layer
-        class dummy_layer
+        template<class Factory>
+        void initialize(Factory& the_factory)
         {
-        public:
+            (void) the_factory;
+        }
 
-            using nested_stack_type = dummy_nested;
-
-        public:
-
-            template<class Factory>
-            void construct(Factory& the_factory)
-            {
-                (void) the_factory;
-            }
-
-            template<class Factory>
-            void initialize(Factory& the_factory)
-            {
-                (void) the_factory;
-            }
-
-            nested_stack_type* nested()
-            {
-                return &m_nested;
-            }
-
-        public:
-
-            nested_stack_type m_nested;
-
-        public:
-
-            // Stubs for the member functions
-            stub::call<uint32_t()> inner_symbols;
-            stub::call<uint32_t()> symbol_size;
-            stub::call<uint32_t()> symbols;
-            stub::call<uint8_t*(uint32_t)> mutable_symbol;
-            stub::call<uint32_t()> expansion;
-        };
-
-        // Dummy factory used to initialize the stack
-        class dummy_factory
+        nested_stack_type* nested()
         {
-        public:
+            return &m_nested;
+        }
 
-            // Stubs for the member functions
-            stub::call<uint32_t()> max_expansion;
-            stub::call<uint32_t()> max_symbol_size;
-        };
-    }
+    public:
 
+        nested_stack_type m_nested;
+
+    public:
+
+        // Stubs for the member functions
+        stub::call<uint32_t()> inner_symbols;
+        stub::call<uint32_t()> symbol_size;
+        stub::call<uint32_t()> symbols;
+        stub::call<uint8_t*(uint32_t)> mutable_symbol;
+        stub::call<uint32_t()> expansion;
+    };
+
+    // Dummy factory used to initialize the stack
+    class dummy_factory
+    {
+    public:
+
+        // Stubs for the member functions
+        stub::call<uint32_t()> max_expansion;
+        stub::call<uint32_t()> max_symbol_size;
+    };
+}
+
+namespace kodo_core
+{
     /// The fulcrum_expansion_storage layer only works with deep main
     /// storage layers, this is checked at compile time. To make sure
-    /// compiles we have to mark our dummy_layer stack as deep
+    /// it compiles, we have to mark our dummy_layer stack as deep
     template<>
     struct has_deep_symbol_storage<dummy_layer>
     {
         static const bool value = true;
     };
+}
 
+namespace
+{
     /// The test stack
-    class dummy_stack
-        : public fulcrum::fulcrum_expansion_storage<dummy_layer>
+    class dummy_stack : public 
+        kodo_fulcrum::fulcrum_expansion_storage<dummy_layer>
     { };
 }
+
 
 /// Test that the nested decoder only sees the outer code symbols if
 /// the expansion is zero i.e. no additional symbols are added in the
 /// inner code
 TEST(test_fulcrum_expansion_storage, no_expansion)
 {
-    kodo::dummy_factory factory;
+    dummy_factory factory;
     factory.max_expansion.set_return(4U);
     factory.max_symbol_size.set_return(100U);
 
-    kodo::dummy_stack stack;
+    dummy_stack stack;
 
     stack.symbols.set_return(4U);
     stack.inner_symbols.set_return(4U);
@@ -130,7 +136,7 @@ TEST(test_fulcrum_expansion_storage, no_expansion)
     // Lambda for custom comparisons (hard-coded for this setup)
     auto compare = [](
         const std::tuple<uint32_t,sak::mutable_storage>& actual,
-        const std::tuple<uint32_t,sak::mutable_storage>& expected) -> bool
+        const std::tuple<uint32_t,sak::mutable_storage>& expected)
     {
         // Check the index (this should always match
         if (std::get<0>(actual) != std::get<0>(expected))
@@ -153,11 +159,11 @@ TEST(test_fulcrum_expansion_storage, no_expansion)
 /// storage when the expansion is non-zero
 TEST(test_fulcrum_expansion_storage, with_expansion)
 {
-    kodo::dummy_factory factory;
+    dummy_factory factory;
     factory.max_expansion.set_return(4U);
     factory.max_symbol_size.set_return(100U);
 
-    kodo::dummy_stack stack;
+    dummy_stack stack;
 
     stack.symbols.set_return(4U);
     stack.inner_symbols.set_return(6U);
@@ -180,7 +186,7 @@ TEST(test_fulcrum_expansion_storage, with_expansion)
     // Lambda for custom comparisons (hard-coded for this setup)
     auto compare = [](
         const std::tuple<uint32_t,sak::mutable_storage>& actual,
-        const std::tuple<uint32_t,sak::mutable_storage>& expected) -> bool
+        const std::tuple<uint32_t,sak::mutable_storage>& expected)
     {
         // Check the index (this should always match
         if (std::get<0>(actual) != std::get<0>(expected))

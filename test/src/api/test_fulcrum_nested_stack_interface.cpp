@@ -4,7 +4,7 @@
 // http://www.steinwurf.com/licensing
 
 #include <kodo_fulcrum/api/fulcrum_nested_stack_interface.hpp>
-#include <kodo/api/final_interface.hpp>
+#include <kodo_core/api/final_interface.hpp>
 
 #include <kodo_fulcrum/api/nested_symbols.hpp>
 #include <kodo_fulcrum/api/nested_symbol_size.hpp>
@@ -17,8 +17,8 @@
 
 namespace
 {
-    struct dummy : kodo::api::final_interface,
-            kodo::fulcrum::api::fulcrum_nested_stack_interface
+    struct dummy : kodo_core::api::final_interface,
+            kodo_fulcrum::api::fulcrum_nested_stack_interface
     {
         uint32_t nested_symbols() const
         {
@@ -40,8 +40,8 @@ TEST(api_test_fulcrum_interface, nested_symbols)
     dummy d;
     d.m_nested_symbols.set_return({0U, 42U});
 
-    EXPECT_EQ(0U, kodo::fulcrum::api::nested_symbols(&d));
-    EXPECT_EQ(42U, kodo::fulcrum::api::nested_symbols(&d));
+    EXPECT_EQ(0U, kodo_fulcrum::api::nested_symbols(&d));
+    EXPECT_EQ(42U, kodo_fulcrum::api::nested_symbols(&d));
 }
 
 TEST(api_test_fulcrum_interface, nested_symbol_size)
@@ -49,6 +49,6 @@ TEST(api_test_fulcrum_interface, nested_symbol_size)
     dummy d;
     d.m_nested_symbol_size.set_return({0U, 42U});
 
-    EXPECT_EQ(0U, kodo::fulcrum::api::nested_symbol_size(&d));
-    EXPECT_EQ(42U, kodo::fulcrum::api::nested_symbol_size(&d));
+    EXPECT_EQ(0U, kodo_fulcrum::api::nested_symbol_size(&d));
+    EXPECT_EQ(42U, kodo_fulcrum::api::nested_symbol_size(&d));
 }

@@ -5,12 +5,10 @@
 
 #pragma once
 
-#include <kodo/has_set_mutable_symbol.hpp>
-#include <kodo/has_deep_symbol_storage.hpp>
+#include <kodo_core/has_set_mutable_symbol.hpp>
+#include <kodo_core/has_deep_symbol_storage.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup utility
     ///
@@ -32,15 +30,16 @@ namespace fulcrum
         /// otherwise this layer is not needed. If the nested stack
         /// uses deep storage we have to make sure we copy out the
         /// decoded symbols once completed.
-        static_assert(has_set_mutable_symbol<nested_stack_type>::value,
-                      "This layer should not be used if the nested stack "
-                      "uses deep storage");
+        static_assert(
+            kodo_core::has_set_mutable_symbol<nested_stack_type>::value,
+            "This layer should not be used if the nested stack "
+            "uses deep storage");
 
         /// Ensure that the main stack uses deep symbol. Since we
         /// specify the symbols for the nested stack in initialize we
         /// need to have the symbols available in the main stack, this
         /// is only the case with deep storage.
-        static_assert(has_deep_symbol_storage<SuperCoder>::value,
+        static_assert(kodo_core::has_deep_symbol_storage<SuperCoder>::value,
                       "This layer requires that the main stack "
                       "uses deep storage");
 
@@ -98,7 +97,8 @@ namespace fulcrum
                 auto symbol_storage = sak::storage(
                     expansion_symbol.data(), SuperCoder::symbol_size());
 
-                nested_decoder->set_mutable_symbol(inner_symbol, symbol_storage);
+                nested_decoder->set_mutable_symbol(
+                    inner_symbol, symbol_storage);
             }
         }
 
@@ -107,5 +107,4 @@ namespace fulcrum
         /// Storage for the expansion symbols
         std::vector<std::vector<uint8_t> > m_expansion_symbols;
     };
-}
 }

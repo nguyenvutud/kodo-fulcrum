@@ -9,11 +9,9 @@
 #include <cassert>
 
 #include "fulcrum_interface.hpp"
-#include <kodo/api/final_interface.hpp>
+#include <kodo_core/api/final_interface.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
 namespace api
 {
@@ -21,12 +19,11 @@ namespace api
     ///
     /// @param stack The final_interface of the stack we call
     ///        layer::inner_symbols() on
-    inline uint32_t inner_symbols(kodo::api::final_interface* stack)
+    inline uint32_t inner_symbols(kodo_core::api::final_interface* stack)
     {
         auto api = dynamic_cast<fulcrum_interface*>(stack);
         assert(api);
         return api->inner_symbols();
     }
-}
 }
 }

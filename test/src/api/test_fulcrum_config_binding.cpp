@@ -24,7 +24,7 @@ namespace
         stub::call<dummy_stack*()> stack;
     };
 
-    using stack = kodo::fulcrum::api::fulcrum_config_binding<dummy>;
+    using stack = kodo_fulcrum::api::fulcrum_config_binding<dummy>;
 }
 
 TEST(api_test_fulcrum_config_binding, max_expansion)

@@ -7,11 +7,9 @@
 
 #include <algorithm>
 
-#include <kodo/has_deep_symbol_storage.hpp>
+#include <kodo_core/has_deep_symbol_storage.hpp>
 
-namespace kodo
-{
-namespace fulcrum
+namespace kodo_fulcrum
 {
     /// @ingroup fulcrum
     ///
@@ -102,12 +100,14 @@ namespace fulcrum
         using stage_two_factory = typename stage_two_decoder_type::factory;
 
         /// Check storage type
-        static_assert(has_deep_symbol_storage<StageOneDecoder>::value,
-                      "Should be a deep storage decoder");
+        static_assert(
+            kodo_core::has_deep_symbol_storage<StageOneDecoder>::value,
+            "Should be a deep storage decoder");
 
         /// Check storage type
-        static_assert(has_deep_symbol_storage<StageTwoDecoder>::value,
-                      "Should be a deep storage decoder");
+        static_assert(
+            kodo_core::has_deep_symbol_storage<StageTwoDecoder>::value,
+            "Should be a deep storage decoder");
 
     public:
 
@@ -441,5 +441,4 @@ namespace fulcrum
         /// Buffer for the outer coding symbol data
         std::vector<uint8_t> m_outer_symbol;
     };
-}
 }
