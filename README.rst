@@ -31,7 +31,7 @@ us at our developer mailing list (hosted at Google Groups):
 Documentation
 -------------
 To get started, see the manual here:
-http://kodo-docs.steinwurf.com
+http://docs.steinwurf.com
 
 You can generate the Doxygen documentation locally if run doxygen in the
 ``doxygen`` folder of this repository. You can install Doxygen using your
