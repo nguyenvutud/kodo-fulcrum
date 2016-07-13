@@ -10,6 +10,7 @@
 #include <kodo_core/finite_field_info.hpp>
 #include <kodo_core/payload_info.hpp>
 #include <kodo_core/plain_symbol_id_reader.hpp>
+#include <kodo_core/plain_symbol_id_size.hpp>
 #include <kodo_core/pool_factory.hpp>
 #include <kodo_core/proxy_layer.hpp>
 #include <kodo_core/storage_block_info.hpp>
@@ -30,7 +31,7 @@ namespace kodo_fulcrum
     ///
     /// This is implemented as a secondary stack since the inner and outer
     /// codes do typically not use the same finite field. Having
-    /// fulcrum_payload_deocder nested means that the user will only see
+    /// fulcrum_payload_decoder nested means that the user will only see
     /// the outer code. Which is typically what we want.
     ///
     /// @tparam MainStack The type of the "main stack" where calls not
@@ -46,6 +47,7 @@ namespace kodo_fulcrum
         kodo_core::symbol_id_decoder<
         // Symbol ID API
         kodo_core::plain_symbol_id_reader<
+        kodo_core::plain_symbol_id_size<
         // Coefficient Storage API
         kodo_core::coefficient_info<
         // Storage API
@@ -56,7 +58,7 @@ namespace kodo_fulcrum
         kodo_core::proxy_layer<MainStack,
         // Final layer
         kodo_core::final_layer
-        >>>>>>>>
+        >>>>>>>>>
     {
     public:
         using factory = kodo_core::pool_factory<fulcrum_payload_decoder>;

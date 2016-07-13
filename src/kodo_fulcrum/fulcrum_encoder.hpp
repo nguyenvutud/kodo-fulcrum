@@ -10,7 +10,7 @@
 #include <kodo_core/nested_systematic.hpp>
 #include <kodo_core/nested_write_payload.hpp>
 #include <kodo_core/payload_precoder.hpp>
-#include <kodo_core/select_storage_type.hpp>
+#include <kodo_core/select_storage_layers.hpp>
 #include <kodo_core/systematic_coefficient_mapper.hpp>
 #include <kodo_core/systematic_precoder.hpp>
 #include <kodo_core/trace_layer.hpp>
@@ -53,14 +53,15 @@ namespace kodo_fulcrum
         fulcrum_nested_stack<
             kodo_rlnc::shallow_full_vector_encoder<fifi::binary, Features>,
         // Coefficient Generator API
-        kodo_core::uniform_generator_layers<
+        kodo_core::uniform_generator_layers::type<Features,
         // Codec API
         kodo_core::common_encoder_layers<Features,
         // Coefficient Storage API
         kodo_core::coefficient_value_access<
         kodo_core::coefficient_info<
         // Symbol Storage API
-        kodo_core::select_storage_type<Features,
+        kodo_core::select_storage_layers<
+            kodo_core::deep_storage_layers, Features,
         // Finite Field API
         kodo_core::finite_field_layers<Field,
         // Fulcrum API

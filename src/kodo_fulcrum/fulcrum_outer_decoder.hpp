@@ -19,7 +19,8 @@
 #include <kodo_core/nested_read_payload.hpp>
 #include <kodo_core/pool_factory.hpp>
 #include <kodo_core/proxy_args.hpp>
-#include <kodo_core/select_storage_type.hpp>
+#include <kodo_core/select_storage_layers.hpp>
+#include <kodo_core/deep_storage_layers.hpp>
 #include <kodo_core/systematic_coefficient_mapper.hpp>
 #include <kodo_core/trace_layer.hpp>
 #include <kodo_core/uniform_generator.hpp>
@@ -61,7 +62,8 @@ namespace kodo_fulcrum
         // Coefficient Storage API
         kodo_core::coefficient_storage_layers<
         // Storage API
-        kodo_core::select_storage_type<Features,
+        kodo_core::select_storage_layers<
+            kodo_core::deep_storage_layers, Features,
         // Finite Field API
         kodo_core::finite_field_layers<Field,
         // Fulcrum API

@@ -10,7 +10,9 @@
 #include <gtest/gtest.h>
 #include <stub/call.hpp>
 
-#include <sak/storage.hpp>
+#include <storage/storage.hpp>
+#include <storage/is_same.hpp>
+
 
 #include <kodo_core/has_deep_symbol_storage.hpp>
 
@@ -26,7 +28,7 @@ namespace
     public:
 
         // Stubs for the member functions
-        stub::call<void(uint32_t,const sak::mutable_storage&)>
+        stub::call<void(uint32_t,const storage::mutable_storage&)>
             set_mutable_symbol;
         stub::call<uint32_t()> symbol_size;
         stub::call<uint32_t()> symbols;
@@ -98,7 +100,7 @@ namespace kodo_core
 namespace
 {
     /// The test stack
-    class dummy_stack : public 
+    class dummy_stack : public
         kodo_fulcrum::fulcrum_expansion_storage<dummy_layer>
     { };
 }
@@ -135,15 +137,15 @@ TEST(test_fulcrum_expansion_storage, no_expansion)
 
     // Lambda for custom comparisons (hard-coded for this setup)
     auto compare = [](
-        const std::tuple<uint32_t,sak::mutable_storage>& actual,
-        const std::tuple<uint32_t,sak::mutable_storage>& expected)
+        const std::tuple<uint32_t,storage::mutable_storage>& actual,
+        const std::tuple<uint32_t,storage::mutable_storage>& expected)
     {
         // Check the index (this should always match
         if (std::get<0>(actual) != std::get<0>(expected))
             return false;
 
-        // sak::is_same returns true if the pointers and sizes are the same
-        return sak::is_same(std::get<1>(actual), std::get<1>(expected));
+        // storage::is_same returns true if the pointers and sizes are the same
+        return storage::is_same(std::get<1>(actual), std::get<1>(expected));
     };
 
     // Now lets check
@@ -185,8 +187,8 @@ TEST(test_fulcrum_expansion_storage, with_expansion)
 
     // Lambda for custom comparisons (hard-coded for this setup)
     auto compare = [](
-        const std::tuple<uint32_t,sak::mutable_storage>& actual,
-        const std::tuple<uint32_t,sak::mutable_storage>& expected)
+        const std::tuple<uint32_t,storage::mutable_storage>& actual,
+        const std::tuple<uint32_t,storage::mutable_storage>& expected)
     {
         // Check the index (this should always match
         if (std::get<0>(actual) != std::get<0>(expected))

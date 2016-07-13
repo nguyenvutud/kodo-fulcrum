@@ -80,7 +80,7 @@ namespace kodo_fulcrum
 
             for (uint32_t i = 0; i < symbols; ++i)
             {
-                auto symbol_storage = sak::storage(
+                auto symbol_storage = storage::storage(
                     SuperCoder::mutable_symbol(i), SuperCoder::symbol_size());
 
                 nested_decoder->set_mutable_symbol(i, symbol_storage);
@@ -94,7 +94,7 @@ namespace kodo_fulcrum
                 uint32_t inner_symbol = i + SuperCoder::symbols();
                 assert(inner_symbol < inner_symbols);
 
-                auto symbol_storage = sak::storage(
+                auto symbol_storage = storage::storage(
                     expansion_symbol.data(), SuperCoder::symbol_size());
 
                 nested_decoder->set_mutable_symbol(

@@ -23,10 +23,8 @@ namespace kodo_fulcrum
             using field_type = fifi::binary8;
             using value_type = field_type::value_type;
 
-            class config
-            {
-            public:
-            };
+            struct config
+            { };
 
             stub::call<void(uint8_t*,uint32_t)> read_uncoded_symbol;
             stub::call<void(uint8_t*,uint8_t*)> read_symbol;
@@ -75,7 +73,7 @@ TEST(test_fulcrum_payload_decoder, api)
     std::vector<uint8_t> block(encoder->block_size());
     std::vector<uint8_t> payload(encoder->payload_size());
 
-    encoder->set_const_symbols(sak::storage(block));
+    encoder->set_const_symbols(storage::storage(block));
 
     // The first packet should be systematic
     encoder->write_payload(payload.data());

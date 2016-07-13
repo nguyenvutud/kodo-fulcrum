@@ -6,7 +6,7 @@ detailed list of every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Major: Upgrade to kodo-rlnc 3
 
 2.0.0
 -----
@@ -16,4 +16,3 @@ Latest
 1.0.0
 -----
 * Initial release based on Kodo 34.0.0
-

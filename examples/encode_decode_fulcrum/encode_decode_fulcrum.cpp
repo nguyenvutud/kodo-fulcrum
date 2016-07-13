@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 
-#include <sak/storage.hpp>
+#include <storage/storage.hpp>
 
 #include <kodo_fulcrum/fulcrum_codes.hpp>
 
@@ -84,7 +84,7 @@ int main()
 
     // Assign the data buffer to the encoder so that we may start
     // to produce encoded symbols
-    encoder->set_const_symbols(sak::storage(data_in));
+    encoder->set_const_symbols(storage::storage(data_in));
 
     // Generate packets until the decoder is complete
     while (!decoder->is_complete())
@@ -98,7 +98,7 @@ int main()
 
     // The decoder is complete, now copy the symbols from the decoder
     std::vector<uint8_t> data_out(decoder->block_size());
-    decoder->copy_from_symbols(sak::storage(data_out));
+    decoder->copy_from_symbols(storage::storage(data_out));
 
     // Check if we properly decoded the data
     if (std::equal(data_out.begin(), data_out.end(), data_in.begin()))

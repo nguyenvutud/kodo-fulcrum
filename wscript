@@ -26,7 +26,7 @@ def resolve(ctx):
     ctx.add_dependency(resolve.ResolveVersion(
         name='kodo-rlnc',
         git_repository='github.com/steinwurf/kodo-rlnc.git',
-        major=2))
+        major=3))
 
     # Internal dependencies
     if ctx.is_toplevel():
@@ -75,4 +75,3 @@ def build(bld):
         bld.recurse('examples/encode_decode_fulcrum')
 
         bld.recurse('benchmark/throughput')
-
