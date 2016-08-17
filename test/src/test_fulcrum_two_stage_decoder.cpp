@@ -7,7 +7,7 @@
 /// fulcrum two stage combined decoder
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <kodo_fulcrum/fulcrum_two_stage_decoder.hpp>
 
@@ -46,12 +46,12 @@ namespace kodo_fulcrum
                 }
 
                 // Stub member functions
-                stub::call<uint32_t()> max_symbols;
-                stub::call<uint32_t()> max_symbol_size;
-                stub::call<uint32_t()> max_coefficient_vector_size;
-                stub::call<uint32_t()> expansion;
-                stub::call<uint32_t()> symbol_size;
-                stub::call<uint32_t()> symbols;
+                stub::function<uint32_t()> max_symbols;
+                stub::function<uint32_t()> max_symbol_size;
+                stub::function<uint32_t()> max_coefficient_vector_size;
+                stub::function<uint32_t()> expansion;
+                stub::function<uint32_t()> symbol_size;
+                stub::function<uint32_t()> symbols;
             };
 
         public:
@@ -69,22 +69,22 @@ namespace kodo_fulcrum
                 m_read_symbol(symbol_data, coefficients);
             }
 
-            void read_uncoded_symbol(uint8_t* symbol_data, 
+            void read_uncoded_symbol(uint8_t* symbol_data,
                                      uint32_t symbol_index)
             {
                 m_read_symbol_index(symbol_data, symbol_index);
             }
 
             // Stubs for member functions
-            stub::call<void(config&)> construct;
-            stub::call<void(config&)> initialize;
-            stub::call<uint32_t()> expansion;
-            stub::call<uint32_t()> symbols;
-            stub::call<uint32_t()> symbol_size;
-            stub::call<bool()> is_outer_systematic;
-            stub::call<void(uint8_t*,uint8_t*)> m_read_symbol;
-            stub::call<void(uint8_t*,uint32_t)> m_read_symbol_index;
-            stub::call<void(const uint8_t*,uint8_t*)> map_to_outer;
+            stub::function<void(config&)> construct;
+            stub::function<void(config&)> initialize;
+            stub::function<uint32_t()> expansion;
+            stub::function<uint32_t()> symbols;
+            stub::function<uint32_t()> symbol_size;
+            stub::function<bool()> is_outer_systematic;
+            stub::function<void(uint8_t*,uint8_t*)> m_read_symbol;
+            stub::function<void(uint8_t*,uint32_t)> m_read_symbol_index;
+            stub::function<void(const uint8_t*,uint8_t*)> map_to_outer;
         };
 
         // In general we try to keep the unit as independent of other

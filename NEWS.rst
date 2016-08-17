@@ -6,7 +6,9 @@ detailed list of every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Minor: Added ``systematic_coefficient_mapper.hpp``.
+* Major: Upgrade to kodo-rlnc 4.
+* Minor: Upgraded internal dependency stub to version 5.
 
 3.0.0
 -----

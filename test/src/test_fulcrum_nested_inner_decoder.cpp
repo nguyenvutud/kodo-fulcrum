@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 namespace kodo_fulcrum
 {
@@ -18,17 +18,17 @@ namespace kodo_fulcrum
     {
         struct nested_stack
         {
-            stub::call<bool()> is_complete;
-            stub::call<uint32_t()> symbols_uncoded;
-            stub::call<bool(uint32_t)> is_symbol_uncoded;
-            stub::call<uint32_t()> rank;
+            stub::function<bool()> is_complete;
+            stub::function<uint32_t()> symbols_uncoded;
+            stub::function<bool(uint32_t)> is_symbol_uncoded;
+            stub::function<uint32_t()> rank;
         };
 
         struct dummy_layer
         {
-            stub::call<nested_stack*()> nested;
-            stub::call<uint32_t()> symbols;
-            stub::call<uint32_t()> expansion;
+            stub::function<nested_stack*()> nested;
+            stub::function<uint32_t()> symbols;
+            stub::function<uint32_t()> expansion;
 
             nested_stack m_nested_stack;
         };
@@ -87,7 +87,7 @@ TEST(test_fulcrum_nested_inner_decoder, user_not_decoded)
     stack.symbols.set_return(4U);
     stack.m_nested_stack.symbols_uncoded.set_return(4U);
     stack.m_nested_stack.is_symbol_uncoded.set_return(
-        {true, true, true, false});
+        true, true, true, false);
 
     EXPECT_FALSE(stack.is_complete());
 }
@@ -99,7 +99,7 @@ TEST(test_fulcrum_rank_inner_decoder, rank_zero)
     kodo_fulcrum::dummy_stack stack;
     stack.nested.set_return(&stack.m_nested_stack);
     stack.expansion.set_return(4U);
-    stack.m_nested_stack.rank.set_return({3U, 4U, 5U, 6U});
+    stack.m_nested_stack.rank.set_return(3U, 4U, 5U, 6U);
 
     EXPECT_EQ(stack.rank(), 0U);
     EXPECT_EQ(stack.rank(), 0U);

@@ -21,11 +21,11 @@
 #include <kodo_core/proxy_args.hpp>
 #include <kodo_core/select_storage_layers.hpp>
 #include <kodo_core/is_storage_layers.hpp>
-#include <kodo_core/systematic_coefficient_mapper.hpp>
 #include <kodo_core/trace_layer.hpp>
-#include <kodo_core/trace_systematic_coefficient_mapper.hpp>
 #include <kodo_core/uniform_generator.hpp>
 
+#include "trace_systematic_coefficient_mapper.hpp"
+#include "systematic_coefficient_mapper.hpp"
 #include "fulcrum_info.hpp"
 #include "fulcrum_payload_decoder.hpp"
 #include "fulcrum_proxy_stack.hpp"
@@ -74,9 +74,9 @@ namespace kodo_fulcrum
                 typename Features::template remove<kodo_core::is_storage_layers>>,
             kodo_core::basic_symbol_decoder<fifi::binary,
                 typename Features::template remove<kodo_core::is_storage_layers>>,
-        kodo_core::trace_systematic_coefficient_mapper<
+        trace_systematic_coefficient_mapper<
             kodo_core::find_enable_trace<Features>,
-        kodo_core::systematic_coefficient_mapper<
+        systematic_coefficient_mapper<
         kodo_core::uniform_generator<
         // Decoder API
         kodo_core::common_decoder_layers<Features,

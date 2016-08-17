@@ -4,7 +4,7 @@
 // http://www.steinwurf.com/licensing
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <kodo_fulcrum/fulcrum_outer_symbol_mapper.hpp>
 
@@ -23,7 +23,7 @@ namespace kodo_fulcrum
             {
             public:
                 // Stub member function
-                stub::call<uint32_t()> max_coefficient_vector_size;
+                stub::function<uint32_t()> max_coefficient_vector_size;
             };
 
         public:
@@ -54,14 +54,14 @@ namespace kodo_fulcrum
             }
 
             // Stub member functions
-            stub::call<void(const config&)> construct;
-            stub::call<void(const uint8_t*, uint8_t*)> m_map_to_outer;
-            stub::call<void(uint32_t, const uint8_t*)> m_map_to_outer_index;
-            stub::call<void(const uint8_t*, uint8_t*)> m_read_symbol;
-            stub::call<void(const uint8_t*, uint32_t)> m_read_symbol_index;
-            stub::call<uint32_t()> inner_symbols;
-            stub::call<uint32_t()> symbols;
-            stub::call<bool()> is_outer_systematic;
+            stub::function<void(const config&)> construct;
+            stub::function<void(const uint8_t*, uint8_t*)> m_map_to_outer;
+            stub::function<void(uint32_t, const uint8_t*)> m_map_to_outer_index;
+            stub::function<void(const uint8_t*, uint8_t*)> m_read_symbol;
+            stub::function<void(const uint8_t*, uint32_t)> m_read_symbol_index;
+            stub::function<uint32_t()> inner_symbols;
+            stub::function<uint32_t()> symbols;
+            stub::function<bool()> is_outer_systematic;
         };
 
         class dummy_stack : public

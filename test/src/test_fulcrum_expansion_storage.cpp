@@ -8,7 +8,7 @@
 #include <cstdint>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <storage/storage.hpp>
 #include <storage/is_same.hpp>
@@ -28,10 +28,10 @@ namespace
     public:
 
         // Stubs for the member functions
-        stub::call<void(uint32_t,const storage::mutable_storage&)>
+        stub::function<void(uint32_t,const storage::mutable_storage&)>
             set_mutable_symbol;
-        stub::call<uint32_t()> symbol_size;
-        stub::call<uint32_t()> symbols;
+        stub::function<uint32_t()> symbol_size;
+        stub::function<uint32_t()> symbols;
     };
 
     // Dummy SuperCoder layer for the fulcrum_expansion_storage layer
@@ -67,11 +67,11 @@ namespace
     public:
 
         // Stubs for the member functions
-        stub::call<uint32_t()> inner_symbols;
-        stub::call<uint32_t()> symbol_size;
-        stub::call<uint32_t()> symbols;
-        stub::call<uint8_t*(uint32_t)> mutable_symbol;
-        stub::call<uint32_t()> expansion;
+        stub::function<uint32_t()> inner_symbols;
+        stub::function<uint32_t()> symbol_size;
+        stub::function<uint32_t()> symbols;
+        stub::function<uint8_t*(uint32_t)> mutable_symbol;
+        stub::function<uint32_t()> expansion;
     };
 
     // Dummy factory used to initialize the stack
@@ -80,8 +80,8 @@ namespace
     public:
 
         // Stubs for the member functions
-        stub::call<uint32_t()> max_expansion;
-        stub::call<uint32_t()> max_symbol_size;
+        stub::function<uint32_t()> max_expansion;
+        stub::function<uint32_t()> max_symbol_size;
     };
 }
 
@@ -135,26 +135,13 @@ TEST(test_fulcrum_expansion_storage, no_expansion)
     stack.construct(factory);
     stack.initialize(factory);
 
-    // Lambda for custom comparisons (hard-coded for this setup)
-    auto compare = [](
-        const std::tuple<uint32_t,storage::mutable_storage>& actual,
-        const std::tuple<uint32_t,storage::mutable_storage>& expected)
-    {
-        // Check the index (this should always match
-        if (std::get<0>(actual) != std::get<0>(expected))
-            return false;
-
-        // storage::is_same returns true if the pointers and sizes are the same
-        return storage::is_same(std::get<1>(actual), std::get<1>(expected));
-    };
-
     // Now lets check
-    EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls(compare)
-                .with(0U, {(uint8_t*)0xdeadbeef,100U})
-                .with(1U, {(uint8_t*)0xdeadbeef,100U})
-                .with(2U, {(uint8_t*)0xdeadbeef,100U})
-                .with(3U, {(uint8_t*)0xdeadbeef,100U})
-                .to_bool());
+    EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls()
+        .with(0U, storage::storage((uint8_t*)0xdeadbeef,100U))
+        .with(1U, storage::storage((uint8_t*)0xdeadbeef,100U))
+        .with(2U, storage::storage((uint8_t*)0xdeadbeef,100U))
+        .with(3U, storage::storage((uint8_t*)0xdeadbeef,100U))
+        .to_bool());
 }
 
 /// Test that the nested decoder gets initialized with expansion
@@ -185,37 +172,20 @@ TEST(test_fulcrum_expansion_storage, with_expansion)
     stack.construct(factory);
     stack.initialize(factory);
 
-    // Lambda for custom comparisons (hard-coded for this setup)
-    auto compare = [](
-        const std::tuple<uint32_t,storage::mutable_storage>& actual,
-        const std::tuple<uint32_t,storage::mutable_storage>& expected)
+    // Comparison function which checks the size of the storage object
+    // and that the data pointer is not null
+    auto compare = [](storage::const_storage actual) -> bool
     {
-        // Check the index (this should always match
-        if (std::get<0>(actual) != std::get<0>(expected))
-            return false;
-
-        // Check the storage size this should always match
-        if (std::get<1>(actual).m_size != std::get<1>(expected).m_size)
-            return false;
-
-        // Check the pointer this only matches for the first 4
-        uint32_t index = std::get<0>(actual);
-        if (index < 4)
-        {
-            if (std::get<1>(actual).m_data != std::get<1>(expected).m_data)
-                return false;
-        }
-
-        return true;
+        return actual.m_data != nullptr && actual.m_size == 100U;
     };
 
     // Now lets check (using the compare lambda)
-    EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls(compare)
-                .with(0U, {(uint8_t*)0xdeadbeef, 100U})
-                .with(1U, {(uint8_t*)0xdeadbeef, 100U})
-                .with(2U, {(uint8_t*)0xdeadbeef, 100U})
-                .with(3U, {(uint8_t*)0xdeadbeef, 100U})
-                .with(4U, {(uint8_t*)0xdeadbeef, 100U})
-                .with(5U, {(uint8_t*)0xdeadbeef, 100U})
-                .to_bool());
+    EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls()
+        .with(0U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+        .with(1U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+        .with(2U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+        .with(3U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+        .with(4U, stub::make_compare(compare))
+        .with(5U, stub::make_compare(compare))
+        .to_bool());
 }

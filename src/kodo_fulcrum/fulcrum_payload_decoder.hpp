@@ -7,7 +7,7 @@
 
 #include <kodo_core/coefficient_info.hpp>
 #include <kodo_core/final_layer.hpp>
-#include <kodo_core/finite_field_info.hpp>
+#include <kodo_core/finite_field.hpp>
 #include <kodo_core/payload_info.hpp>
 #include <kodo_core/plain_symbol_id_reader.hpp>
 #include <kodo_core/plain_symbol_id_size.hpp>
@@ -53,7 +53,7 @@ namespace kodo_fulcrum
         // Storage API
         kodo_core::storage_block_info<
         // Finite Field API
-        kodo_core::finite_field_info<fifi::binary,
+        kodo_core::finite_field<fifi::binary,
         // Proxy
         kodo_core::proxy_layer<MainStack,
         // Final layer

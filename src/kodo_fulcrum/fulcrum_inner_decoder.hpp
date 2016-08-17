@@ -54,7 +54,7 @@ namespace kodo_fulcrum
         kodo_core::storage_bytes_used<
         kodo_core::storage_block_info<
         // Finite Field API
-        kodo_core::finite_field_info<Field,
+        kodo_core::finite_field<Field,
         // Fulcrum API
         kodo_core::nested_read_payload<
         kodo_core::nested_payload_size<

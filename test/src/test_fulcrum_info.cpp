@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <kodo_fulcrum/fulcrum_info.hpp>
 
@@ -31,13 +31,13 @@ namespace
         public:
 
             // Stub member functions
-            stub::call<uint32_t()> symbols;
+            stub::function<uint32_t()> symbols;
         };
 
     public:
 
         // Stub member functions
-        stub::call<void(config&)> initialize;
+        stub::function<void(config&)> initialize;
     };
 
     template<class MaxExpansion, class DefaultExpansion>

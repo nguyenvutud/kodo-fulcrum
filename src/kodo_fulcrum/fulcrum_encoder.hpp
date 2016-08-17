@@ -11,15 +11,15 @@
 #include <kodo_core/nested_write_payload.hpp>
 #include <kodo_core/payload_precoder.hpp>
 #include <kodo_core/select_storage_layers.hpp>
-#include <kodo_core/systematic_coefficient_mapper.hpp>
 #include <kodo_core/systematic_precoder.hpp>
 #include <kodo_core/trace_layer.hpp>
 #include <kodo_core/trace_nested_stack.hpp>
-#include <kodo_core/trace_systematic_coefficient_mapper.hpp>
 #include <kodo_core/uniform_generator_layers.hpp>
 
 #include <kodo_rlnc/shallow_full_vector_encoder.hpp>
 
+#include "trace_systematic_coefficient_mapper.hpp"
+#include "systematic_coefficient_mapper.hpp"
 #include "fulcrum_info.hpp"
 #include "fulcrum_nested_stack.hpp"
 
@@ -44,9 +44,9 @@ namespace kodo_fulcrum
         kodo_core::nested_systematic<
         kodo_core::payload_precoder<
         kodo_core::systematic_precoder<
-        kodo_core::trace_systematic_coefficient_mapper<
+        trace_systematic_coefficient_mapper<
             kodo_core::find_enable_trace<Features>,
-        kodo_core::systematic_coefficient_mapper<
+        systematic_coefficient_mapper<
         kodo_core::nested_write_payload<
         kodo_core::nested_payload_size<
         kodo_core::trace_nested_stack<kodo_core::find_enable_trace<Features>,

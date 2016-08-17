@@ -7,7 +7,7 @@
 #include <kodo_fulcrum/fulcrum_encoder.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 namespace kodo_fulcrum
 {
@@ -23,11 +23,14 @@ namespace kodo_fulcrum
             using field_type = fifi::binary8;
             using value_type = field_type::value_type;
 
+            struct field
+            { };
+
             struct config
             { };
 
-            stub::call<void(uint8_t*,uint32_t)> read_uncoded_symbol;
-            stub::call<void(uint8_t*,uint8_t*)> read_symbol;
+            stub::function<void(uint8_t*,uint32_t)> read_uncoded_symbol;
+            stub::function<void(uint8_t*,uint8_t*)> read_symbol;
         };
     }
 }

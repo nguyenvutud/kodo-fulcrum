@@ -7,6 +7,8 @@
 
 #include <cstdint>
 
+#include <kodo_core/finite_field_info.hpp>
+
 #include <fifi/binary.hpp>
 
 namespace kodo_fulcrum
@@ -38,7 +40,7 @@ namespace kodo_fulcrum
 
         /// The finite field used by the inner code. Currently we only support
         /// binary, in the future this might change.
-        using inner_field_type = fifi::binary;
+        using inner_field = kodo_core::finite_field_info<fifi::binary>;
 
     public:
 

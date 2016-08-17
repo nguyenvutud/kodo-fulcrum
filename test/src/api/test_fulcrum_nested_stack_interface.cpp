@@ -10,7 +10,7 @@
 #include <kodo_fulcrum/api/nested_symbol_size.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 /// @file test_fulcrum_nested_stack_interface.cpp Test for the
 ///       fulcrum_nested_stack_interface
@@ -30,15 +30,15 @@ namespace
             return m_nested_symbol_size();
         }
 
-        stub::call<uint32_t()> m_nested_symbols;
-        stub::call<uint32_t()> m_nested_symbol_size;
+        stub::function<uint32_t()> m_nested_symbols;
+        stub::function<uint32_t()> m_nested_symbol_size;
     };
 }
 
 TEST(api_test_fulcrum_interface, nested_symbols)
 {
     dummy d;
-    d.m_nested_symbols.set_return({0U, 42U});
+    d.m_nested_symbols.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::nested_symbols(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::nested_symbols(&d));
@@ -47,7 +47,7 @@ TEST(api_test_fulcrum_interface, nested_symbols)
 TEST(api_test_fulcrum_interface, nested_symbol_size)
 {
     dummy d;
-    d.m_nested_symbol_size.set_return({0U, 42U});
+    d.m_nested_symbol_size.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::nested_symbol_size(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::nested_symbol_size(&d));

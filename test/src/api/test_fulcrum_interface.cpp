@@ -6,7 +6,7 @@
 #include <kodo_fulcrum/api/fulcrum_interface.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <kodo_core/api/final_interface.hpp>
 
@@ -30,15 +30,15 @@ namespace
             return m_inner_symbols();
         }
 
-        stub::call<uint32_t()> m_expansion;
-        stub::call<uint32_t()> m_inner_symbols;
+        stub::function<uint32_t()> m_expansion;
+        stub::function<uint32_t()> m_inner_symbols;
     };
 }
 
 TEST(api_test_fulcrum_interface, expansion)
 {
     dummy d;
-    d.m_expansion.set_return({0U, 42U});
+    d.m_expansion.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::expansion(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::expansion(&d));
@@ -47,7 +47,7 @@ TEST(api_test_fulcrum_interface, expansion)
 TEST(api_test_fulcrum_interface, inner_symbols)
 {
     dummy d;
-    d.m_inner_symbols.set_return({0U, 42U});
+    d.m_inner_symbols.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::inner_symbols(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::inner_symbols(&d));

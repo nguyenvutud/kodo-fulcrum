@@ -21,10 +21,10 @@
 #include <kodo_core/proxy_args.hpp>
 #include <kodo_core/select_storage_layers.hpp>
 #include <kodo_core/deep_storage_layers.hpp>
-#include <kodo_core/systematic_coefficient_mapper.hpp>
 #include <kodo_core/trace_layer.hpp>
 #include <kodo_core/uniform_generator.hpp>
 
+#include "systematic_coefficient_mapper.hpp"
 #include "fulcrum_info.hpp"
 #include "fulcrum_outer_symbol_mapper.hpp"
 #include "fulcrum_payload_decoder.hpp"
@@ -55,7 +55,7 @@ namespace kodo_fulcrum
         fulcrum_proxy_stack<kodo_core::proxy_args<>, fulcrum_payload_decoder,
         // Decoder API
         fulcrum_outer_symbol_mapper<
-        kodo_core::systematic_coefficient_mapper<
+        systematic_coefficient_mapper<
         // Coefficient Generator API
         kodo_core::uniform_generator<
         kodo_core::common_decoder_layers<Features,
@@ -78,7 +78,7 @@ namespace kodo_fulcrum
     {
     public:
 
-        static_assert(!std::is_same<Field,fifi::prime2325>::value,
+        static_assert(!std::is_same<Field, fifi::prime2325>::value,
                       "The mapping between inner and outer code requires "
                       "that both are binary extension fields");
 

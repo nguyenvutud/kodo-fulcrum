@@ -6,7 +6,7 @@
 #include <kodo_fulcrum/api/fulcrum_config_binding.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 /// @file test_fulcrum_config_binding.cpp Test for the fulcrum_config_binding
 
@@ -14,14 +14,14 @@ namespace
 {
     struct dummy_stack
     {
-        stub::call<uint32_t()> max_expansion;
-        stub::call<void(uint32_t)> set_expansion;
-        stub::call<uint32_t()> max_inner_symbols;
+        stub::function<uint32_t()> max_expansion;
+        stub::function<void(uint32_t)> set_expansion;
+        stub::function<uint32_t()> max_inner_symbols;
     };
 
     struct dummy
     {
-        stub::call<dummy_stack*()> stack;
+        stub::function<dummy_stack*()> stack;
     };
 
     using stack = kodo_fulcrum::api::fulcrum_config_binding<dummy>;
@@ -31,7 +31,7 @@ TEST(api_test_fulcrum_config_binding, max_expansion)
 {
     stack s;
     dummy_stack d;
-    d.max_expansion.set_return({0U, 42U});
+    d.max_expansion.set_return(0U, 42U);
     s.stack.set_return(&d);
     EXPECT_EQ(0U, s.max_expansion());
     EXPECT_EQ(42U, s.max_expansion());
@@ -51,7 +51,7 @@ TEST(api_test_fulcrum_config_binding, max_inner_symbols)
 {
     stack s;
     dummy_stack d;
-    d.max_inner_symbols.set_return({0U, 42U});
+    d.max_inner_symbols.set_return(0U, 42U);
     s.stack.set_return(&d);
     EXPECT_EQ(0U, s.max_inner_symbols());
     EXPECT_EQ(42U, s.max_inner_symbols());

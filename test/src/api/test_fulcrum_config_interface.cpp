@@ -6,7 +6,7 @@
 #include <kodo_fulcrum/api/fulcrum_config_interface.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <kodo_core/api/final_interface.hpp>
 #include <kodo_fulcrum/api/max_expansion.hpp>
@@ -18,7 +18,7 @@
 namespace
 {
     struct dummy :
-        kodo_core::api::final_interface, 
+        kodo_core::api::final_interface,
         kodo_fulcrum::api::fulcrum_config_interface
     {
         uint32_t max_expansion() const override
@@ -36,16 +36,16 @@ namespace
             return m_max_inner_symbols();
         }
 
-        stub::call<uint32_t()> m_max_expansion;
-        stub::call<void(uint32_t)> m_set_expansion;
-        stub::call<uint32_t()> m_max_inner_symbols;
+        stub::function<uint32_t()> m_max_expansion;
+        stub::function<void(uint32_t)> m_set_expansion;
+        stub::function<uint32_t()> m_max_inner_symbols;
     };
 }
 
 TEST(api_test_fulcrum_config_interface, max_expansion)
 {
     dummy d;
-    d.m_max_expansion.set_return({0U, 42U});
+    d.m_max_expansion.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::max_expansion(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::max_expansion(&d));
@@ -67,7 +67,7 @@ TEST(api_test_fulcrum_config_interface, set_expansion)
 TEST(api_test_fulcrum_config_interface, max_inner_symbols)
 {
     dummy d;
-    d.m_max_inner_symbols.set_return({0U, 42U});
+    d.m_max_inner_symbols.set_return(0U, 42U);
 
     EXPECT_EQ(0U, kodo_fulcrum::api::max_inner_symbols(&d));
     EXPECT_EQ(42U, kodo_fulcrum::api::max_inner_symbols(&d));
