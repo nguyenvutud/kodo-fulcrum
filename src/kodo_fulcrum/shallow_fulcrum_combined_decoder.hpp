@@ -35,9 +35,10 @@ namespace kodo_fulcrum
         class Field,
         class Features = meta::typelist<>
     >
-    using shallow_fulcrum_combined_decoder = fulcrum_combined_decoder<
+    using shallow_fulcrum_combined_decoder =
+        fulcrum_combined_decoder<
         Field,
         meta::typelist<
-            kodo_core::mutable_shallow_storage_layers>::
-            extend<Features>>;
+        kodo_core::mutable_shallow_storage_layers>::
+        extend<Features>>;
 }

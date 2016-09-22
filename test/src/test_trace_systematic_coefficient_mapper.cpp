@@ -28,7 +28,7 @@ namespace
         struct field
         {
             static field_type::value_type get_value(const uint8_t* coefficients,
-                uint32_t index)
+                                                    uint32_t index)
             {
                 assert(coefficients != nullptr);
 
@@ -48,7 +48,7 @@ namespace
 
     class dummy_stack :
         public kodo_fulcrum::trace_systematic_coefficient_mapper<
-            kodo_core::enable_trace, dummy_layer>
+        kodo_core::enable_trace, dummy_layer>
     { };
 }
 
@@ -79,10 +79,10 @@ TEST(test_trace_systematic_coefficient_mapper, test_trace_non_systematic)
     stack.map_to_outer(inner_coefficients.data(), outer_coefficients.data());
 
     EXPECT_TRUE(stack.write_trace.expect_calls()
-        .with("systematic_coefficient_mapper",
-              "From inner symbol: 1 2 3 4 5 \n"
-              "To outer symbol: 6 7 8 9 10 \n")
-        .to_bool());
+                .with("systematic_coefficient_mapper",
+                      "From inner symbol: 1 2 3 4 5 \n"
+                      "To outer symbol: 6 7 8 9 10 \n")
+                .to_bool());
 }
 
 /// Test that tracing works for non systematic symbols
@@ -98,8 +98,8 @@ TEST(test_trace_systematic_coefficient_mapper, test_trace_systematic)
     stack.map_uncoded_to_outer(42U, outer_coefficients.data());
 
     EXPECT_TRUE(stack.write_trace.expect_calls()
-        .with("systematic_coefficient_mapper",
-              "From inner symbol: 42\n"
-              "To outer symbol: 6 7 8 9 10 \n")
-        .to_bool());
+                .with("systematic_coefficient_mapper",
+                      "From inner symbol: 42\n"
+                      "To outer symbol: 6 7 8 9 10 \n")
+                .to_bool());
 }

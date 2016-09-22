@@ -63,13 +63,13 @@ namespace kodo_fulcrum
         kodo_core::coefficient_storage_layers<
         // Storage API
         kodo_core::select_storage_layers<
-            kodo_core::deep_storage_layers, Features,
+        kodo_core::deep_storage_layers, Features,
         // Finite Field API
         kodo_core::finite_field_layers<Field,
         // Fulcrum API
         fulcrum_info<
-            std::integral_constant<uint32_t,10>, // MaxExpansion
-            std::integral_constant<uint32_t,4>,  // DefaultExpansion
+        std::integral_constant<uint32_t,10>, // MaxExpansion
+        std::integral_constant<uint32_t,4>,  // DefaultExpansion
         // Trace Layer
         kodo_core::trace_layer<kodo_core::find_enable_trace<Features>,
         // Final Layer

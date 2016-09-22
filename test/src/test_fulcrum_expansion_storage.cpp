@@ -29,7 +29,7 @@ namespace
 
         // Stubs for the member functions
         stub::function<void(uint32_t,const storage::mutable_storage&)>
-            set_mutable_symbol;
+        set_mutable_symbol;
         stub::function<uint32_t()> symbol_size;
         stub::function<uint32_t()> symbols;
     };
@@ -70,7 +70,7 @@ namespace
         stub::function<uint32_t()> inner_symbols;
         stub::function<uint32_t()> symbol_size;
         stub::function<uint32_t()> symbols;
-        stub::function<uint8_t*(uint32_t)> mutable_symbol;
+        stub::function<uint8_t* (uint32_t)> mutable_symbol;
         stub::function<uint32_t()> expansion;
     };
 
@@ -137,11 +137,11 @@ TEST(test_fulcrum_expansion_storage, no_expansion)
 
     // Now lets check
     EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls()
-        .with(0U, storage::storage((uint8_t*)0xdeadbeef,100U))
-        .with(1U, storage::storage((uint8_t*)0xdeadbeef,100U))
-        .with(2U, storage::storage((uint8_t*)0xdeadbeef,100U))
-        .with(3U, storage::storage((uint8_t*)0xdeadbeef,100U))
-        .to_bool());
+                .with(0U, storage::storage((uint8_t*)0xdeadbeef,100U))
+                .with(1U, storage::storage((uint8_t*)0xdeadbeef,100U))
+                .with(2U, storage::storage((uint8_t*)0xdeadbeef,100U))
+                .with(3U, storage::storage((uint8_t*)0xdeadbeef,100U))
+                .to_bool());
 }
 
 /// Test that the nested decoder gets initialized with expansion
@@ -181,11 +181,11 @@ TEST(test_fulcrum_expansion_storage, with_expansion)
 
     // Now lets check (using the compare lambda)
     EXPECT_TRUE(stack.m_nested.set_mutable_symbol.expect_calls()
-        .with(0U, storage::storage((uint8_t*)0xdeadbeef, 100U))
-        .with(1U, storage::storage((uint8_t*)0xdeadbeef, 100U))
-        .with(2U, storage::storage((uint8_t*)0xdeadbeef, 100U))
-        .with(3U, storage::storage((uint8_t*)0xdeadbeef, 100U))
-        .with(4U, stub::make_compare(compare))
-        .with(5U, stub::make_compare(compare))
-        .to_bool());
+                .with(0U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+                .with(1U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+                .with(2U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+                .with(3U, storage::storage((uint8_t*)0xdeadbeef, 100U))
+                .with(4U, stub::make_compare(compare))
+                .with(5U, stub::make_compare(compare))
+                .to_bool());
 }

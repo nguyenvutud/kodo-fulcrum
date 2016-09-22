@@ -22,7 +22,7 @@ namespace
 {
     template<class Field>
     class dummy_stack : public kodo_fulcrum::systematic_coefficient_mapper<
-                               kodo_fulcrum::helper_coefficient_mapper<Field>>
+        kodo_fulcrum::helper_coefficient_mapper<Field>>
     { };
 }
 

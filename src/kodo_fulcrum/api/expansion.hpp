@@ -13,17 +13,17 @@
 
 namespace kodo_fulcrum
 {
-namespace api
-{
-    /// @copydoc layer::expansion() const
-    ///
-    /// @param stack The final_interface of the stack we call
-    ///        layer::expansion() on
-    inline uint32_t expansion(kodo_core::api::final_interface* stack)
+    namespace api
     {
-        auto api = dynamic_cast<fulcrum_interface*>(stack);
-        assert(api);
-        return api->expansion();
+        /// @copydoc layer::expansion() const
+        ///
+        /// @param stack The final_interface of the stack we call
+        ///        layer::expansion() on
+        inline uint32_t expansion(kodo_core::api::final_interface* stack)
+        {
+            auto api = dynamic_cast<fulcrum_interface*>(stack);
+            assert(api);
+            return api->expansion();
+        }
     }
-}
 }

@@ -95,8 +95,8 @@ namespace kodo_fulcrum
         template<class MaxExpansion>
         class dummy_stack : public
             fulcrum_two_stage_decoder<
-                kodo_core::elimination_decoder<fifi::binary>,
-                kodo_core::basic_symbol_decoder<fifi::binary>,
+            kodo_core::elimination_decoder<fifi::binary>,
+            kodo_core::basic_symbol_decoder<fifi::binary>,
             dummy_layer<MaxExpansion>>
         { };
     }
@@ -109,7 +109,7 @@ TEST(test_fulcrum_two_stage_decoder, build_nested_decoders)
     const uint32_t max_expansion = 4U;
 
     using stack_type = kodo_fulcrum::dummy_stack<
-        std::integral_constant<uint32_t,max_expansion>>;
+                       std::integral_constant<uint32_t,max_expansion>>;
 
     // In this case we configure it so that we should have a stage one
     // decoder with 2 symbols and a stage two decoder with 12 symbols

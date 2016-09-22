@@ -13,17 +13,17 @@
 
 namespace kodo_fulcrum
 {
-namespace api
-{
-    /// @copydoc layer::max_inner_symbols() const
-    ///
-    /// @param stack The final interface of the stack we call
-    ///              layer::max_inner_symbols() on
-    inline uint32_t max_inner_symbols(kodo_core::api::final_interface* stack)
+    namespace api
     {
-        auto api = dynamic_cast<fulcrum_config_interface*>(stack);
-        assert(api);
-        return api->max_inner_symbols();
+        /// @copydoc layer::max_inner_symbols() const
+        ///
+        /// @param stack The final interface of the stack we call
+        ///              layer::max_inner_symbols() on
+        inline uint32_t max_inner_symbols(kodo_core::api::final_interface* stack)
+        {
+            auto api = dynamic_cast<fulcrum_config_interface*>(stack);
+            assert(api);
+            return api->max_inner_symbols();
+        }
     }
-}
 }

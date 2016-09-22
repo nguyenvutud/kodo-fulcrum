@@ -45,13 +45,13 @@ namespace kodo_fulcrum
         kodo_core::payload_precoder<
         kodo_core::systematic_precoder<
         trace_systematic_coefficient_mapper<
-            kodo_core::find_enable_trace<Features>,
+        kodo_core::find_enable_trace<Features>,
         systematic_coefficient_mapper<
         kodo_core::nested_write_payload<
         kodo_core::nested_payload_size<
         kodo_core::trace_nested_stack<kodo_core::find_enable_trace<Features>,
         fulcrum_nested_stack<
-            kodo_rlnc::shallow_full_vector_encoder<fifi::binary, Features>,
+        kodo_rlnc::shallow_full_vector_encoder<fifi::binary, Features>,
         // Coefficient Generator API
         kodo_core::uniform_generator_layers::type<Features,
         // Codec API
@@ -61,13 +61,13 @@ namespace kodo_fulcrum
         kodo_core::coefficient_info<
         // Symbol Storage API
         kodo_core::select_storage_layers<
-            kodo_core::deep_storage_layers, Features,
+        kodo_core::deep_storage_layers, Features,
         // Finite Field API
         kodo_core::finite_field_layers<Field,
         // Fulcrum API
         fulcrum_info<
-            std::integral_constant<uint32_t,10>, // MaxExpansion
-            std::integral_constant<uint32_t,4>,  // DefaultExpansion
+        std::integral_constant<uint32_t,10>, // MaxExpansion
+        std::integral_constant<uint32_t,4>,  // DefaultExpansion
         // Trace Layer
         kodo_core::trace_layer<kodo_core::find_enable_trace<Features>,
         // Final Layer

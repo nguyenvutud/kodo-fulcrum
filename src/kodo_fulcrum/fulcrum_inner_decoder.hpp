@@ -61,10 +61,10 @@ namespace kodo_fulcrum
         kodo_core::nested_decoder_api<
         kodo_core::trace_nested_stack<kodo_core::find_enable_trace<Features>,
         fulcrum_nested_stack<
-            kodo_rlnc::shallow_full_vector_decoder<Field, Features>,
+        kodo_rlnc::shallow_full_vector_decoder<Field, Features>,
         fulcrum_info<
-            std::integral_constant<uint32_t,10>, // MaxExpansion
-            std::integral_constant<uint32_t,4>,  // DefaultExpansion
+        std::integral_constant<uint32_t,10>, // MaxExpansion
+        std::integral_constant<uint32_t,4>,  // DefaultExpansion
         // Trace Layer
         kodo_core::trace_layer<kodo_core::find_enable_trace<Features>,
         // Final Layer

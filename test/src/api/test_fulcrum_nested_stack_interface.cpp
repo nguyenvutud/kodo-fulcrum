@@ -18,7 +18,7 @@
 namespace
 {
     struct dummy : kodo_core::api::final_interface,
-            kodo_fulcrum::api::fulcrum_nested_stack_interface
+        kodo_fulcrum::api::fulcrum_nested_stack_interface
     {
         uint32_t nested_symbols() const
         {

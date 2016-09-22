@@ -44,7 +44,7 @@ TEST(test_fulcrum_payload_decoder, api)
     using encoder_stack = kodo_fulcrum::fulcrum_encoder<fifi::binary8>;
 
     using payload_stack = kodo_fulcrum::fulcrum_payload_decoder<
-        kodo_fulcrum::dummy_main_stack>;
+                          kodo_fulcrum::dummy_main_stack>;
 
     // The main stack where the call to read_symbol(..) will go
     kodo_fulcrum::dummy_main_stack::config main_factory;

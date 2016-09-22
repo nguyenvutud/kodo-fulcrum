@@ -150,7 +150,7 @@ namespace kodo_fulcrum
             {
                 uint32_t symbol_size = SuperCoder::config::symbol_size();
                 uint32_t symbols = SuperCoder::config::symbols() +
-                    SuperCoder::config::expansion();
+                                   SuperCoder::config::expansion();
 
                 m_stage_two_factory.set_symbol_size(symbol_size);
                 m_stage_two_factory.set_symbols(symbols);
@@ -176,10 +176,10 @@ namespace kodo_fulcrum
             SuperCoder::construct(the_factory);
 
             m_stage_one_decoder_copied.resize(
-                the_factory.max_expansion() );
+                the_factory.max_expansion());
 
             m_stage_two_decoder_copied.resize(
-                the_factory.max_expansion() + the_factory.max_symbols() );
+                the_factory.max_expansion() + the_factory.max_symbols());
 
             m_outer_coefficients.resize(
                 the_factory.max_coefficient_vector_size());
@@ -317,7 +317,7 @@ namespace kodo_fulcrum
         void check_combined_rank()
         {
             uint32_t combined_rank = m_stage_one_decoder->rank() +
-                m_stage_two_decoder->rank();
+                                     m_stage_two_decoder->rank();
 
             assert(combined_rank <= SuperCoder::symbols() +
                    SuperCoder::expansion());

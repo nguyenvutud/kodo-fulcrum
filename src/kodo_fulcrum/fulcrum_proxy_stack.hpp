@@ -42,5 +42,5 @@ namespace kodo_fulcrum
         class SuperCoder
     >
     using fulcrum_proxy_stack = kodo_core::proxy_stack<
-        fulcrum_nested_stack, Args, NestedStack, SuperCoder>;
+                                fulcrum_nested_stack, Args, NestedStack, SuperCoder>;
 }

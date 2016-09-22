@@ -29,7 +29,7 @@ namespace kodo_fulcrum
         struct field
         {
             static value_type get_value(const uint8_t* coefficients,
-                uint32_t index)
+                                        uint32_t index)
             {
                 assert(coefficients != nullptr);
 
@@ -37,7 +37,7 @@ namespace kodo_fulcrum
             }
 
             static void set_value(uint8_t* coefficients, uint32_t index,
-                value_type value)
+                                  value_type value)
             {
                 assert(coefficients != nullptr);
 
@@ -56,7 +56,7 @@ namespace kodo_fulcrum
             }
 
             static void set_value(uint8_t* coefficients, uint32_t index,
-                fifi::binary::value_type value)
+                                  fifi::binary::value_type value)
             {
                 assert(coefficients != nullptr);
 

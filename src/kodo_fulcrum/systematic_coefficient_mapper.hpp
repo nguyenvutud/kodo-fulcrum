@@ -118,7 +118,7 @@ namespace kodo_fulcrum
 
             // Zero the destination coefficients buffer
             std::fill_n(outer_coefficients,
-                SuperCoder::coefficient_vector_size(), 0U);
+                        SuperCoder::coefficient_vector_size(), 0U);
 
             // For the systematic part
             for (uint32_t i = 0; i < SuperCoder::symbols(); ++i)
@@ -150,7 +150,7 @@ namespace kodo_fulcrum
                 const auto& v = m_coefficients_lookup[i];
 
                 SuperCoder::add(outer_coefficients, v.data(),
-                    SuperCoder::coefficient_vector_size());
+                                SuperCoder::coefficient_vector_size());
             }
         }
 
@@ -171,7 +171,7 @@ namespace kodo_fulcrum
             {
                 // Zero the destination coefficients buffer
                 std::fill_n(outer_coefficients,
-                    SuperCoder::coefficient_vector_size(), 0U);
+                            SuperCoder::coefficient_vector_size(), 0U);
 
                 SuperCoder::field::set_value(
                     outer_coefficients, inner_symbol, 1U);
