@@ -18,38 +18,38 @@
 // translation units
 namespace
 {
-    class dummy_layer
+class dummy_layer
+{
+public:
+
+    using field_type = fifi::binary8;
+    using inner_field_type = fifi::binary8;
+
+    struct field
     {
-    public:
-
-        using field_type = fifi::binary8;
-        using inner_field_type = fifi::binary8;
-
-        struct field
+        static field_type::value_type get_value(const uint8_t* coefficients,
+                                                uint32_t index)
         {
-            static field_type::value_type get_value(const uint8_t* coefficients,
-                uint32_t index)
-            {
-                assert(coefficients != nullptr);
+            assert(coefficients != nullptr);
 
-                return fifi::get_value<field_type>(coefficients, index);
-            }
-        };
-
-        using inner_field = field;
-
-        stub::function<void(const uint8_t*,uint8_t*)> map_to_outer;
-        stub::function<void(uint32_t,uint8_t*)> map_uncoded_to_outer;
-        stub::function<bool()> is_trace_enabled;
-        stub::function<uint32_t()> inner_symbols;
-        stub::function<uint32_t()> symbols;
-        stub::function<void(std::string,std::string)> write_trace;
+            return fifi::get_value<field_type>(coefficients, index);
+        }
     };
 
-    class dummy_stack :
-        public kodo_fulcrum::trace_systematic_coefficient_mapper<
-            kodo_core::enable_trace, dummy_layer>
-    { };
+    using inner_field = field;
+
+    stub::function<void(const uint8_t*,uint8_t*)> map_to_outer;
+    stub::function<void(uint32_t,uint8_t*)> map_uncoded_to_outer;
+    stub::function<bool()> is_trace_enabled;
+    stub::function<uint32_t()> inner_symbols;
+    stub::function<uint32_t()> symbols;
+    stub::function<void(std::string,std::string)> write_trace;
+};
+
+class dummy_stack :
+    public kodo_fulcrum::trace_systematic_coefficient_mapper<
+    kodo_core::enable_trace, dummy_layer>
+{ };
 }
 
 /// Test that no traces are written when tracing are disabled
@@ -79,10 +79,10 @@ TEST(test_trace_systematic_coefficient_mapper, test_trace_non_systematic)
     stack.map_to_outer(inner_coefficients.data(), outer_coefficients.data());
 
     EXPECT_TRUE(stack.write_trace.expect_calls()
-        .with("systematic_coefficient_mapper",
-              "From inner symbol: 1 2 3 4 5 \n"
-              "To outer symbol: 6 7 8 9 10 \n")
-        .to_bool());
+                .with("systematic_coefficient_mapper",
+                      "From inner symbol: 1 2 3 4 5 \n"
+                      "To outer symbol: 6 7 8 9 10 \n")
+                .to_bool());
 }
 
 /// Test that tracing works for non systematic symbols
@@ -98,8 +98,8 @@ TEST(test_trace_systematic_coefficient_mapper, test_trace_systematic)
     stack.map_uncoded_to_outer(42U, outer_coefficients.data());
 
     EXPECT_TRUE(stack.write_trace.expect_calls()
-        .with("systematic_coefficient_mapper",
-              "From inner symbol: 42\n"
-              "To outer symbol: 6 7 8 9 10 \n")
-        .to_bool());
+                .with("systematic_coefficient_mapper",
+                      "From inner symbol: 42\n"
+                      "To outer symbol: 6 7 8 9 10 \n")
+                .to_bool());
 }

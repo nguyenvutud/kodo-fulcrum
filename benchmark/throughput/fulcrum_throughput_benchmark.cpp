@@ -32,7 +32,7 @@ BENCHMARK_OPTION(throughput_options)
 
     auto default_symbol_size =
         gauge::po::value<std::vector<uint32_t> >()->default_value(
-            {1600}, "")->multitoken();
+            symbol_size, "")->multitoken();
 
     std::vector<uint32_t> expansion;
     expansion.push_back(1);
@@ -53,17 +53,17 @@ BENCHMARK_OPTION(throughput_options)
             types, "")->multitoken();
 
     options.add_options()
-        ("symbols", default_symbols, "Set the number of symbols");
+    ("symbols", default_symbols, "Set the number of symbols");
 
     options.add_options()
-        ("symbol_size", default_symbol_size, "Set the symbol size in bytes");
+    ("symbol_size", default_symbol_size, "Set the symbol size in bytes");
 
     options.add_options()
-        ("expansion", default_expansion,
-         "Set the expansion of the fulcrum codes");
+    ("expansion", default_expansion,
+     "Set the expansion of the fulcrum codes");
 
     options.add_options()
-        ("type", default_types, "Set type [encoder|decoder]");
+    ("type", default_types, "Set type [encoder|decoder]");
 
     gauge::runner::instance().register_options(options);
 }
@@ -72,19 +72,22 @@ BENCHMARK_OPTION(throughput_options)
 // Fulcrum
 //------------------------------------------------------------------
 
-using setup_fulcrum_inner_throughput = fulcrum_throughput_benchmark<
+using setup_fulcrum_inner_throughput =
+    fulcrum_throughput_benchmark<
     kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
     kodo_fulcrum::fulcrum_inner_decoder<fifi::binary>>;
 
 BENCHMARK_F(setup_fulcrum_inner_throughput, FulcrumInner, Binary, 5);
 
-using setup_fulcrum_outer_throughput = fulcrum_throughput_benchmark<
+using setup_fulcrum_outer_throughput =
+    fulcrum_throughput_benchmark<
     kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
     kodo_fulcrum::fulcrum_outer_decoder<fifi::binary8>>;
 
 BENCHMARK_F(setup_fulcrum_outer_throughput, FulcrumOuter, Binary8, 5);
 
-using setup_fulcrum_combined_throughput = fulcrum_throughput_benchmark<
+using setup_fulcrum_combined_throughput =
+    fulcrum_throughput_benchmark<
     kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
     kodo_fulcrum::fulcrum_combined_decoder<fifi::binary8>>;
 

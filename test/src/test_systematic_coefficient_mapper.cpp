@@ -20,10 +20,10 @@
 // translation units
 namespace
 {
-    template<class Field>
-    class dummy_stack : public kodo_fulcrum::systematic_coefficient_mapper<
-                               kodo_fulcrum::helper_coefficient_mapper<Field>>
-    { };
+template<class Field>
+class dummy_stack : public kodo_fulcrum::systematic_coefficient_mapper<
+    kodo_fulcrum::helper_coefficient_mapper<Field>>
+{ };
 }
 
 TEST(test_systematic_coefficient_mapper, api)

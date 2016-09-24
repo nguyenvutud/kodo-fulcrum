@@ -16,38 +16,38 @@
 // translation units
 namespace
 {
-    template<class DecoderType>
-    class dummy_layer : public kodo_core::with_trace
+template<class DecoderType>
+class dummy_layer : public kodo_core::with_trace
+{
+public:
+
+    dummy_layer()
     {
-    public:
+        zone_prefix.set_return("");
+    }
 
-        dummy_layer()
-        {
-            zone_prefix.set_return("");
-        }
+    using stage_one_decoder_type = DecoderType;
+    using stage_two_decoder_type = DecoderType;
 
-        using stage_one_decoder_type = DecoderType;
-        using stage_two_decoder_type = DecoderType;
+    DecoderType m_stage_one_decoder;
+    DecoderType m_stage_two_decoder;
 
-        DecoderType m_stage_one_decoder;
-        DecoderType m_stage_two_decoder;
+    DecoderType& stage_one_decoder()
+    {
+        return m_stage_one_decoder;
+    }
 
-        DecoderType& stage_one_decoder()
-        {
-            return m_stage_one_decoder;
-        }
+    DecoderType& stage_two_decoder()
+    {
+        return m_stage_two_decoder;
+    }
+};
 
-        DecoderType& stage_two_decoder()
-        {
-            return m_stage_two_decoder;
-        }
-    };
-
-    template<class DecoderType>
-    class test_stack : public
-        kodo_fulcrum::trace_fulcrum_two_stage_decoder<kodo_core::enable_trace,
-        dummy_layer<DecoderType>>
-    { };
+template<class DecoderType>
+class test_stack : public
+    kodo_fulcrum::trace_fulcrum_two_stage_decoder<kodo_core::enable_trace,
+    dummy_layer<DecoderType>>
+{ };
 }
 
 /// Test that the trace layer works even if the stage one and two decoders

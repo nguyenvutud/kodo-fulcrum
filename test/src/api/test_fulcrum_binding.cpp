@@ -12,18 +12,18 @@
 
 namespace
 {
-    struct dummy_stack
-    {
-        stub::function<uint32_t()> expansion;
-        stub::function<uint32_t()> inner_symbols;
-    };
+struct dummy_stack
+{
+    stub::function<uint32_t()> expansion;
+    stub::function<uint32_t()> inner_symbols;
+};
 
-    struct dummy
-    {
-        stub::function<dummy_stack*()> stack;
-    };
+struct dummy
+{
+    stub::function<dummy_stack*()> stack;
+};
 
-    using stack = kodo_fulcrum::api::fulcrum_binding<dummy>;
+using stack = kodo_fulcrum::api::fulcrum_binding<dummy>;
 }
 
 TEST(api_test_fulcrum_binding, expansion)

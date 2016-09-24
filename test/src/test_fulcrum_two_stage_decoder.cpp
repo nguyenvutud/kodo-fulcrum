@@ -18,88 +18,88 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+template<class MaxExpansion>
+class dummy_layer
+{
+public:
+
+    class config
     {
-        template<class MaxExpansion>
-        class dummy_layer
+    public:
+
+        config(uint32_t max_symbols, uint32_t max_symbol_size)
         {
-        public:
+            (void) max_symbols;
+            (void) max_symbol_size;
+        }
 
-            class config
-            {
-            public:
+        // We cannot stub this function since it called by the
+        // fulcrum_two_stage_decoder in the constructor
+        uint32_t max_expansion() const
+        {
+            return MaxExpansion::value;
+        }
 
-                config(uint32_t max_symbols, uint32_t max_symbol_size)
-                {
-                    (void) max_symbols;
-                    (void) max_symbol_size;
-                }
+        // Stub member functions
+        stub::function<uint32_t()> max_symbols;
+        stub::function<uint32_t()> max_symbol_size;
+        stub::function<uint32_t()> max_coefficient_vector_size;
+        stub::function<uint32_t()> expansion;
+        stub::function<uint32_t()> symbol_size;
+        stub::function<uint32_t()> symbols;
+    };
 
-                // We cannot stub this function since it called by the
-                // fulcrum_two_stage_decoder in the constructor
-                uint32_t max_expansion() const
-                {
-                    return MaxExpansion::value;
-                }
+public:
 
-                // Stub member functions
-                stub::function<uint32_t()> max_symbols;
-                stub::function<uint32_t()> max_symbol_size;
-                stub::function<uint32_t()> max_coefficient_vector_size;
-                stub::function<uint32_t()> expansion;
-                stub::function<uint32_t()> symbol_size;
-                stub::function<uint32_t()> symbols;
-            };
-
-        public:
-
-            // We don't stub out this function since we have already
-            // specified its value
-            uint32_t max_expansion() const
-            {
-                return MaxExpansion::value;
-            }
-
-            /// The stubs do not support overloading
-            void read_symbol(uint8_t* symbol_data, uint8_t* coefficients)
-            {
-                m_read_symbol(symbol_data, coefficients);
-            }
-
-            void read_uncoded_symbol(uint8_t* symbol_data,
-                                     uint32_t symbol_index)
-            {
-                m_read_symbol_index(symbol_data, symbol_index);
-            }
-
-            // Stubs for member functions
-            stub::function<void(config&)> construct;
-            stub::function<void(config&)> initialize;
-            stub::function<uint32_t()> expansion;
-            stub::function<uint32_t()> symbols;
-            stub::function<uint32_t()> symbol_size;
-            stub::function<bool()> is_outer_systematic;
-            stub::function<void(uint8_t*,uint8_t*)> m_read_symbol;
-            stub::function<void(uint8_t*,uint32_t)> m_read_symbol_index;
-            stub::function<void(const uint8_t*,uint8_t*)> map_to_outer;
-        };
-
-        // In general we try to keep the unit as independent of other
-        // layers in Kodo, but in this case we would need to write a
-        // lot of unit test code for the two nested decoders etc. so
-        // we choose to simply reuse the two we use in the
-        // fulcrum_combined_decoder.
-        template<class MaxExpansion>
-        class dummy_stack : public
-            fulcrum_two_stage_decoder<
-                kodo_core::elimination_decoder<fifi::binary>,
-                kodo_core::basic_symbol_decoder<fifi::binary>,
-            dummy_layer<MaxExpansion>>
-        { };
+    // We don't stub out this function since we have already
+    // specified its value
+    uint32_t max_expansion() const
+    {
+        return MaxExpansion::value;
     }
+
+    /// The stubs do not support overloading
+    void read_symbol(uint8_t* symbol_data, uint8_t* coefficients)
+    {
+        m_read_symbol(symbol_data, coefficients);
+    }
+
+    void read_uncoded_symbol(uint8_t* symbol_data,
+                             uint32_t symbol_index)
+    {
+        m_read_symbol_index(symbol_data, symbol_index);
+    }
+
+    // Stubs for member functions
+    stub::function<void(config&)> construct;
+    stub::function<void(config&)> initialize;
+    stub::function<uint32_t()> expansion;
+    stub::function<uint32_t()> symbols;
+    stub::function<uint32_t()> symbol_size;
+    stub::function<bool()> is_outer_systematic;
+    stub::function<void(uint8_t*,uint8_t*)> m_read_symbol;
+    stub::function<void(uint8_t*,uint32_t)> m_read_symbol_index;
+    stub::function<void(const uint8_t*,uint8_t*)> map_to_outer;
+};
+
+// In general we try to keep the unit as independent of other
+// layers in Kodo, but in this case we would need to write a
+// lot of unit test code for the two nested decoders etc. so
+// we choose to simply reuse the two we use in the
+// fulcrum_combined_decoder.
+template<class MaxExpansion>
+class dummy_stack : public
+    fulcrum_two_stage_decoder<
+    kodo_core::elimination_decoder<fifi::binary>,
+    kodo_core::basic_symbol_decoder<fifi::binary>,
+    dummy_layer<MaxExpansion>>
+{ };
+}
 }
 
 /// Test that the two nested decoders get the right "dimensions"
@@ -109,7 +109,7 @@ TEST(test_fulcrum_two_stage_decoder, build_nested_decoders)
     const uint32_t max_expansion = 4U;
 
     using stack_type = kodo_fulcrum::dummy_stack<
-        std::integral_constant<uint32_t,max_expansion>>;
+                       std::integral_constant<uint32_t,max_expansion>>;
 
     // In this case we configure it so that we should have a stage one
     // decoder with 2 symbols and a stage two decoder with 12 symbols

@@ -11,32 +11,32 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
-    {
-        struct nested_stack
-        {
-            stub::function<bool()> is_complete;
-            stub::function<uint32_t()> symbols_uncoded;
-            stub::function<bool(uint32_t)> is_symbol_uncoded;
-            stub::function<uint32_t()> rank;
-        };
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+struct nested_stack
+{
+    stub::function<bool()> is_complete;
+    stub::function<uint32_t()> symbols_uncoded;
+    stub::function<bool(uint32_t)> is_symbol_uncoded;
+    stub::function<uint32_t()> rank;
+};
 
-        struct dummy_layer
-        {
-            stub::function<nested_stack*()> nested;
-            stub::function<uint32_t()> symbols;
-            stub::function<uint32_t()> expansion;
+struct dummy_layer
+{
+    stub::function<nested_stack*()> nested;
+    stub::function<uint32_t()> symbols;
+    stub::function<uint32_t()> expansion;
 
-            nested_stack m_nested_stack;
-        };
+    nested_stack m_nested_stack;
+};
 
-        class dummy_stack :
-            public fulcrum_nested_inner_decoder<dummy_layer>
-        { };
-    }
+class dummy_stack :
+    public fulcrum_nested_inner_decoder<dummy_layer>
+{ };
+}
 }
 
 // Test that if the nested is complete we are also complete

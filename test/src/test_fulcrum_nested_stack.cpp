@@ -10,128 +10,128 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+/// The nested stack created by the fulcrum_nested_stack
+class nested_dummy_stack
+{
+public:
+
+    using pointer = std::shared_ptr<nested_dummy_stack>;
+
+public:
+
+    class config
     {
-        /// The nested stack created by the fulcrum_nested_stack
-        class nested_dummy_stack
+    public:
+
+        config(uint32_t max_symbols, uint32_t max_symbol_size) :
+            m_max_symbols(max_symbols),
+            m_max_symbol_size(max_symbol_size)
+        { }
+
+        uint32_t max_symbols() const
         {
-        public:
-
-            using pointer = std::shared_ptr<nested_dummy_stack>;
-
-        public:
-
-            class config
-            {
-            public:
-
-                config(uint32_t max_symbols, uint32_t max_symbol_size) :
-                    m_max_symbols(max_symbols),
-                    m_max_symbol_size(max_symbol_size)
-                { }
-
-                uint32_t max_symbols() const
-                {
-                    return m_max_symbols;
-                }
-                uint32_t max_symbol_size() const
-                {
-                    return m_max_symbol_size;
-                }
-
-                void set_symbols(uint32_t symbols)
-                {
-                    m_symbols = symbols;
-                }
-                void set_symbol_size(uint32_t symbol_size)
-                {
-                    m_symbol_size = symbol_size;
-                }
-
-                pointer build()
-                {
-                    return std::make_shared<nested_dummy_stack>();
-                }
-
-                uint32_t m_max_symbols;
-                uint32_t m_max_symbol_size;
-
-                uint32_t m_symbols;
-                uint32_t m_symbol_size;
-            };
-
-        public:
-
-            template<class Factory>
-            void initialize(Factory& the_factory)
-            {
-                (void) the_factory;
-            }
-        };
-
-        /// The SuperCoder layer used by the fulcrum_nested_stack
-        template<uint32_t MaxExpansion>
-        class dummy_layer
+            return m_max_symbols;
+        }
+        uint32_t max_symbol_size() const
         {
-        public:
+            return m_max_symbol_size;
+        }
 
-            class config
-            {
-            public:
+        void set_symbols(uint32_t symbols)
+        {
+            m_symbols = symbols;
+        }
+        void set_symbol_size(uint32_t symbol_size)
+        {
+            m_symbol_size = symbol_size;
+        }
 
-                config(uint32_t max_symbols, uint32_t max_symbol_size) :
-                    m_max_symbols(max_symbols),
-                    m_max_symbol_size(max_symbol_size)
-                { }
+        pointer build()
+        {
+            return std::make_shared<nested_dummy_stack>();
+        }
 
-                uint32_t max_expansion() const
-                {
-                    return MaxExpansion;
-                }
+        uint32_t m_max_symbols;
+        uint32_t m_max_symbol_size;
 
-                uint32_t expansion() const
-                {
-                    return MaxExpansion;
-                }
+        uint32_t m_symbols;
+        uint32_t m_symbol_size;
+    };
 
-                uint32_t max_symbols() const
-                {
-                    return m_max_symbols;
-                }
-                uint32_t max_symbol_size() const
-                {
-                    return m_max_symbol_size;
-                }
+public:
 
-                uint32_t symbols() const
-                {
-                    return m_max_symbols;
-                }
-                uint32_t symbol_size() const
-                {
-                    return m_max_symbol_size;
-                }
-
-                uint32_t m_max_symbols;
-                uint32_t m_max_symbol_size;
-            };
-
-            template<class Factory>
-            void initialize(Factory& the_factory)
-            {
-                (void) the_factory;
-            }
-        };
-
-        template<uint32_t MaxExpansion>
-        class dummy_stack : public
-            fulcrum_nested_stack<
-            nested_dummy_stack, dummy_layer<MaxExpansion> >
-        { };
+    template<class Factory>
+    void initialize(Factory& the_factory)
+    {
+        (void) the_factory;
     }
+};
+
+/// The SuperCoder layer used by the fulcrum_nested_stack
+template<uint32_t MaxExpansion>
+class dummy_layer
+{
+public:
+
+    class config
+    {
+    public:
+
+        config(uint32_t max_symbols, uint32_t max_symbol_size) :
+            m_max_symbols(max_symbols),
+            m_max_symbol_size(max_symbol_size)
+        { }
+
+        uint32_t max_expansion() const
+        {
+            return MaxExpansion;
+        }
+
+        uint32_t expansion() const
+        {
+            return MaxExpansion;
+        }
+
+        uint32_t max_symbols() const
+        {
+            return m_max_symbols;
+        }
+        uint32_t max_symbol_size() const
+        {
+            return m_max_symbol_size;
+        }
+
+        uint32_t symbols() const
+        {
+            return m_max_symbols;
+        }
+        uint32_t symbol_size() const
+        {
+            return m_max_symbol_size;
+        }
+
+        uint32_t m_max_symbols;
+        uint32_t m_max_symbol_size;
+    };
+
+    template<class Factory>
+    void initialize(Factory& the_factory)
+    {
+        (void) the_factory;
+    }
+};
+
+template<uint32_t MaxExpansion>
+class dummy_stack : public
+    fulcrum_nested_stack<
+    nested_dummy_stack, dummy_layer<MaxExpansion> >
+{ };
+}
 }
 
 TEST(test_fulcrum_nested_stack, api)

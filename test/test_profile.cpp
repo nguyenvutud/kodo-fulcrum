@@ -23,10 +23,10 @@ void parse_test_arguments(int argc, char** argv)
 
     po::options_description desc("Test options");
     desc.add_options()
-        ("profile", po::value<std::string>(), "test profile");
+    ("profile", po::value<std::string>(), "test profile");
 
     po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv , desc), vm);
+    po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
 
     if (vm.count("profile"))

@@ -13,22 +13,22 @@ namespace kodo_fulcrum
 {
 namespace api
 {
-    /// @ingroup interface
-    ///
-    template<class Super>
-    struct fulcrum_binding : Super, fulcrum_interface
+/// @ingroup interface
+///
+template<class Super>
+struct fulcrum_binding : Super, fulcrum_interface
+{
+    /// @copydoc layer::expansion() const
+    uint32_t expansion() const
     {
-        /// @copydoc layer::expansion() const
-        uint32_t expansion() const
-        {
-            return Super::stack()->expansion();
-        }
+        return Super::stack()->expansion();
+    }
 
-        /// @copydoc layer::inner_symbols() const
-        uint32_t inner_symbols() const
-        {
-            return Super::stack()->inner_symbols();
-        }
-    };
+    /// @copydoc layer::inner_symbols() const
+    uint32_t inner_symbols() const
+    {
+        return Super::stack()->inner_symbols();
+    }
+};
 }
 }

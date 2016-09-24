@@ -17,21 +17,21 @@
 
 namespace
 {
-    template<class Field>
-    using encoder = kodo_fulcrum::fulcrum_encoder<Field>;
+template<class Field>
+using encoder = kodo_fulcrum::fulcrum_encoder<Field>;
 
-    template<class Field>
-    using inner_decoder = kodo_fulcrum::fulcrum_inner_decoder<Field>;
+template<class Field>
+using inner_decoder = kodo_fulcrum::fulcrum_inner_decoder<Field>;
 
-    template<class Field>
-    using outer_decoder = kodo_fulcrum::fulcrum_outer_decoder<Field>;
+template<class Field>
+using outer_decoder = kodo_fulcrum::fulcrum_outer_decoder<Field>;
 
-    template<class Field>
-    using combined_decoder = kodo_fulcrum::fulcrum_combined_decoder<Field>;
+template<class Field>
+using combined_decoder = kodo_fulcrum::fulcrum_combined_decoder<Field>;
 
-    template<class Field>
-    using shallow_combined_decoder =
-        kodo_fulcrum::shallow_fulcrum_combined_decoder<Field>;
+template<class Field>
+using shallow_combined_decoder =
+    kodo_fulcrum::shallow_fulcrum_combined_decoder<Field>;
 }
 
 TEST(test_fulcrum_codes, inner)

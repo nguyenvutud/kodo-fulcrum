@@ -13,18 +13,18 @@
 
 namespace
 {
-    struct dummy_stack
-    {
-        stub::function<uint32_t()> nested_symbols;
-        stub::function<uint32_t()> nested_symbol_size;
-    };
+struct dummy_stack
+{
+    stub::function<uint32_t()> nested_symbols;
+    stub::function<uint32_t()> nested_symbol_size;
+};
 
-    struct dummy
-    {
-        stub::function<dummy_stack*()> stack;
-    };
+struct dummy
+{
+    stub::function<dummy_stack*()> stack;
+};
 
-    using stack = kodo_fulcrum::api::fulcrum_nested_stack_binding<dummy>;
+using stack = kodo_fulcrum::api::fulcrum_nested_stack_binding<dummy>;
 }
 
 TEST(api_test_fulcrum_nested_stack_binding, nested_symbols)

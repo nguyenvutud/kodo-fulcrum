@@ -14,40 +14,40 @@
 // translation units
 namespace
 {
-    class dummy_layer
+class dummy_layer
+{
+public:
+
+    class config
     {
     public:
 
-        class config
+        config(uint32_t max_symbols, uint32_t max_symbol_size)
         {
-        public:
-
-            config(uint32_t max_symbols, uint32_t max_symbol_size)
-            {
-                (void) max_symbols;
-                (void) max_symbol_size;
-            }
-
-        public:
-
-            // Stub member functions
-            stub::function<uint32_t()> symbols;
-        };
+            (void) max_symbols;
+            (void) max_symbol_size;
+        }
 
     public:
 
         // Stub member functions
-        stub::function<void(config&)> initialize;
+        stub::function<uint32_t()> symbols;
     };
 
-    template<class MaxExpansion, class DefaultExpansion>
-    class dummy_stack : public
-        kodo_fulcrum::fulcrum_info<MaxExpansion, DefaultExpansion, dummy_layer>
-    {
-    public:
+public:
 
-        using factory = typename dummy_stack::config;
-    };
+    // Stub member functions
+    stub::function<void(config&)> initialize;
+};
+
+template<class MaxExpansion, class DefaultExpansion>
+class dummy_stack : public
+    kodo_fulcrum::fulcrum_info<MaxExpansion, DefaultExpansion, dummy_layer>
+{
+public:
+
+    using factory = typename dummy_stack::config;
+};
 }
 
 /// Test that the API returns the right values
