@@ -17,22 +17,22 @@
 
 namespace
 {
-    struct dummy :
-        kodo_core::api::final_interface, kodo_fulcrum::api::fulcrum_interface
+struct dummy :
+    kodo_core::api::final_interface, kodo_fulcrum::api::fulcrum_interface
+{
+    uint32_t expansion() const
     {
-        uint32_t expansion() const
-        {
-            return m_expansion();
-        }
+        return m_expansion();
+    }
 
-        uint32_t inner_symbols() const
-        {
-            return m_inner_symbols();
-        }
+    uint32_t inner_symbols() const
+    {
+        return m_inner_symbols();
+    }
 
-        stub::function<uint32_t()> m_expansion;
-        stub::function<uint32_t()> m_inner_symbols;
-    };
+    stub::function<uint32_t()> m_expansion;
+    stub::function<uint32_t()> m_inner_symbols;
+};
 }
 
 TEST(api_test_fulcrum_interface, expansion)

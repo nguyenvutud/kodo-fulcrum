@@ -17,29 +17,29 @@
 
 namespace
 {
-    struct dummy :
-        kodo_core::api::final_interface,
-        kodo_fulcrum::api::fulcrum_config_interface
+struct dummy :
+    kodo_core::api::final_interface,
+    kodo_fulcrum::api::fulcrum_config_interface
+{
+    uint32_t max_expansion() const override
     {
-        uint32_t max_expansion() const override
-        {
-            return m_max_expansion();
-        }
+        return m_max_expansion();
+    }
 
-        void set_expansion(uint32_t expansion) override
-        {
-            m_set_expansion(expansion);
-        }
+    void set_expansion(uint32_t expansion) override
+    {
+        m_set_expansion(expansion);
+    }
 
-        uint32_t max_inner_symbols() const override
-        {
-            return m_max_inner_symbols();
-        }
+    uint32_t max_inner_symbols() const override
+    {
+        return m_max_inner_symbols();
+    }
 
-        stub::function<uint32_t()> m_max_expansion;
-        stub::function<void(uint32_t)> m_set_expansion;
-        stub::function<uint32_t()> m_max_inner_symbols;
-    };
+    stub::function<uint32_t()> m_max_expansion;
+    stub::function<void(uint32_t)> m_set_expansion;
+    stub::function<uint32_t()> m_max_inner_symbols;
+};
 }
 
 TEST(api_test_fulcrum_config_interface, max_expansion)

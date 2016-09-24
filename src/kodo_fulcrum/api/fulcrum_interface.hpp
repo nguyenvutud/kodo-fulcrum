@@ -9,18 +9,18 @@
 
 namespace kodo_fulcrum
 {
-    namespace api
-    {
-        /// @ingroup interface
-        ///
-        /// @brief The interface exposing the API available on a fulcrum stack
-        struct fulcrum_interface
-        {
-            /// @copydoc layer::expansion() const
-            virtual uint32_t expansion() const = 0;
+namespace api
+{
+/// @ingroup interface
+///
+/// @brief The interface exposing the API available on a fulcrum stack
+struct fulcrum_interface
+{
+    /// @copydoc layer::expansion() const
+    virtual uint32_t expansion() const = 0;
 
-            /// @copydoc layer::inner_symbols() const
-            virtual uint32_t inner_symbols() const = 0;
-        };
-    }
+    /// @copydoc layer::inner_symbols() const
+    virtual uint32_t inner_symbols() const = 0;
+};
+}
 }

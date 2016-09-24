@@ -21,88 +21,88 @@
 // translation units
 namespace
 {
-    // The dummy nested class is used to represent the inner
-    // code.
-    class dummy_nested
+// The dummy nested class is used to represent the inner
+// code.
+class dummy_nested
+{
+public:
+
+    // Stubs for the member functions
+    stub::function<void(uint32_t,const storage::mutable_storage&)>
+    set_mutable_symbol;
+    stub::function<uint32_t()> symbol_size;
+    stub::function<uint32_t()> symbols;
+};
+
+// Dummy SuperCoder layer for the fulcrum_expansion_storage layer
+class dummy_layer
+{
+public:
+
+    using nested_stack_type = dummy_nested;
+
+public:
+
+    template<class Factory>
+    void construct(Factory& the_factory)
     {
-    public:
+        (void) the_factory;
+    }
 
-        // Stubs for the member functions
-        stub::function<void(uint32_t,const storage::mutable_storage&)>
-        set_mutable_symbol;
-        stub::function<uint32_t()> symbol_size;
-        stub::function<uint32_t()> symbols;
-    };
-
-    // Dummy SuperCoder layer for the fulcrum_expansion_storage layer
-    class dummy_layer
+    template<class Factory>
+    void initialize(Factory& the_factory)
     {
-    public:
+        (void) the_factory;
+    }
 
-        using nested_stack_type = dummy_nested;
-
-    public:
-
-        template<class Factory>
-        void construct(Factory& the_factory)
-        {
-            (void) the_factory;
-        }
-
-        template<class Factory>
-        void initialize(Factory& the_factory)
-        {
-            (void) the_factory;
-        }
-
-        nested_stack_type* nested()
-        {
-            return &m_nested;
-        }
-
-    public:
-
-        nested_stack_type m_nested;
-
-    public:
-
-        // Stubs for the member functions
-        stub::function<uint32_t()> inner_symbols;
-        stub::function<uint32_t()> symbol_size;
-        stub::function<uint32_t()> symbols;
-        stub::function<uint8_t* (uint32_t)> mutable_symbol;
-        stub::function<uint32_t()> expansion;
-    };
-
-    // Dummy factory used to initialize the stack
-    class dummy_factory
+    nested_stack_type* nested()
     {
-    public:
+        return &m_nested;
+    }
 
-        // Stubs for the member functions
-        stub::function<uint32_t()> max_expansion;
-        stub::function<uint32_t()> max_symbol_size;
-    };
+public:
+
+    nested_stack_type m_nested;
+
+public:
+
+    // Stubs for the member functions
+    stub::function<uint32_t()> inner_symbols;
+    stub::function<uint32_t()> symbol_size;
+    stub::function<uint32_t()> symbols;
+    stub::function<uint8_t* (uint32_t)> mutable_symbol;
+    stub::function<uint32_t()> expansion;
+};
+
+// Dummy factory used to initialize the stack
+class dummy_factory
+{
+public:
+
+    // Stubs for the member functions
+    stub::function<uint32_t()> max_expansion;
+    stub::function<uint32_t()> max_symbol_size;
+};
 }
 
 namespace kodo_core
 {
-    /// The fulcrum_expansion_storage layer only works with deep main
-    /// storage layers, this is checked at compile time. To make sure
-    /// it compiles, we have to mark our dummy_layer stack as deep
-    template<>
-    struct has_deep_symbol_storage<dummy_layer>
-    {
-        static const bool value = true;
-    };
+/// The fulcrum_expansion_storage layer only works with deep main
+/// storage layers, this is checked at compile time. To make sure
+/// it compiles, we have to mark our dummy_layer stack as deep
+template<>
+struct has_deep_symbol_storage<dummy_layer>
+{
+    static const bool value = true;
+};
 }
 
 namespace
 {
-    /// The test stack
-    class dummy_stack : public
-        kodo_fulcrum::fulcrum_expansion_storage<dummy_layer>
-    { };
+/// The test stack
+class dummy_stack : public
+    kodo_fulcrum::fulcrum_expansion_storage<dummy_layer>
+{ };
 }
 
 

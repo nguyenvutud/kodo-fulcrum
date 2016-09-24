@@ -17,22 +17,22 @@
 
 namespace
 {
-    struct dummy : kodo_core::api::final_interface,
-        kodo_fulcrum::api::fulcrum_nested_stack_interface
+struct dummy : kodo_core::api::final_interface,
+    kodo_fulcrum::api::fulcrum_nested_stack_interface
+{
+    uint32_t nested_symbols() const
     {
-        uint32_t nested_symbols() const
-        {
-            return m_nested_symbols();
-        }
+        return m_nested_symbols();
+    }
 
-        uint32_t nested_symbol_size() const
-        {
-            return m_nested_symbol_size();
-        }
+    uint32_t nested_symbol_size() const
+    {
+        return m_nested_symbol_size();
+    }
 
-        stub::function<uint32_t()> m_nested_symbols;
-        stub::function<uint32_t()> m_nested_symbol_size;
-    };
+    stub::function<uint32_t()> m_nested_symbols;
+    stub::function<uint32_t()> m_nested_symbol_size;
+};
 }
 
 TEST(api_test_fulcrum_interface, nested_symbols)

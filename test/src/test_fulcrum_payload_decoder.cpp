@@ -11,28 +11,28 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
-    {
-        class dummy_main_stack
-        {
-        public:
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+class dummy_main_stack
+{
+public:
 
-            using field_type = fifi::binary8;
-            using value_type = field_type::value_type;
+    using field_type = fifi::binary8;
+    using value_type = field_type::value_type;
 
-            struct field
-            { };
+    struct field
+    { };
 
-            struct config
-            { };
+    struct config
+    { };
 
-            stub::function<void(uint8_t*,uint32_t)> read_uncoded_symbol;
-            stub::function<void(uint8_t*,uint8_t*)> read_symbol;
-        };
-    }
+    stub::function<void(uint8_t*,uint32_t)> read_uncoded_symbol;
+    stub::function<void(uint8_t*,uint8_t*)> read_symbol;
+};
+}
 }
 
 /// Test that the fulcrum payload decoder can be instantiated and that it

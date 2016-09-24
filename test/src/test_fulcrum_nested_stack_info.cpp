@@ -9,60 +9,60 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+template<uint32_t MaxExpansion>
+class dummy_layer
+{
+public:
+
+    class config
     {
-        template<uint32_t MaxExpansion>
-        class dummy_layer
+    public:
+
+        config(uint32_t max_symbols, uint32_t max_symbol_size) :
+            m_max_symbols(max_symbols),
+            m_max_symbol_size(max_symbol_size)
+        { }
+
+        uint32_t max_expansion() const
         {
-        public:
+            return MaxExpansion;
+        }
 
-            class config
-            {
-            public:
+        uint32_t expansion() const
+        {
+            return MaxExpansion;
+        }
 
-                config(uint32_t max_symbols, uint32_t max_symbol_size) :
-                    m_max_symbols(max_symbols),
-                    m_max_symbol_size(max_symbol_size)
-                { }
+        uint32_t symbols() const
+        {
+            return m_max_symbols;
+        }
+        uint32_t symbol_size() const
+        {
+            return m_max_symbol_size;
+        }
 
-                uint32_t max_expansion() const
-                {
-                    return MaxExpansion;
-                }
+        uint32_t m_max_symbols;
+        uint32_t m_max_symbol_size;
+    };
 
-                uint32_t expansion() const
-                {
-                    return MaxExpansion;
-                }
-
-                uint32_t symbols() const
-                {
-                    return m_max_symbols;
-                }
-                uint32_t symbol_size() const
-                {
-                    return m_max_symbol_size;
-                }
-
-                uint32_t m_max_symbols;
-                uint32_t m_max_symbol_size;
-            };
-
-            template<class Factory>
-            void initialize(Factory& the_factory)
-            {
-                (void) the_factory;
-            }
-        };
-
-        template<uint32_t MaxExpansion>
-        class dummy_stack : public
-            fulcrum_nested_stack_info<dummy_layer<MaxExpansion>>
-        { };
+    template<class Factory>
+    void initialize(Factory& the_factory)
+    {
+        (void) the_factory;
     }
+};
+
+template<uint32_t MaxExpansion>
+class dummy_stack : public
+    fulcrum_nested_stack_info<dummy_layer<MaxExpansion>>
+{ };
+}
 }
 
 TEST(test_fulcrum_nested_stack_info, api)

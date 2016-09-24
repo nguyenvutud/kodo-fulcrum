@@ -10,64 +10,64 @@
 
 namespace kodo_fulcrum
 {
-    // Put dummy layers and tests classes in an anonymous namespace
-    // to avoid violations of ODF (one-definition-rule) in other
-    // translation units
-    namespace
+// Put dummy layers and tests classes in an anonymous namespace
+// to avoid violations of ODF (one-definition-rule) in other
+// translation units
+namespace
+{
+class dummy_layer
+{
+public:
+
+    class config
     {
-        class dummy_layer
-        {
-        public:
+    public:
+        // Stub member function
+        stub::function<uint32_t()> max_coefficient_vector_size;
+    };
 
-            class config
-            {
-            public:
-                // Stub member function
-                stub::function<uint32_t()> max_coefficient_vector_size;
-            };
+public:
 
-        public:
-
-            // The stubs do not support overloaded functions
-            void map_to_outer(const uint8_t* inner_coefficients,
-                              uint8_t* outer_coefficients)
-            {
-                m_map_to_outer(inner_coefficients, outer_coefficients);
-            }
-
-            void map_uncoded_to_outer(uint32_t inner_symbol,
-                                      uint8_t* outer_coefficients)
-            {
-                m_map_to_outer_index(inner_symbol, outer_coefficients);
-            }
-
-            void read_symbol(uint8_t* symbol_data,
-                             uint8_t* symbol_coefficients)
-            {
-                m_read_symbol(symbol_data, symbol_coefficients);
-            }
-
-            void read_uncoded_symbol(uint8_t* symbol_data,
-                                     uint32_t symbol_index)
-            {
-                m_read_symbol_index(symbol_data, symbol_index);
-            }
-
-            // Stub member functions
-            stub::function<void(const config&)> construct;
-            stub::function<void(const uint8_t*, uint8_t*)> m_map_to_outer;
-            stub::function<void(uint32_t, const uint8_t*)> m_map_to_outer_index;
-            stub::function<void(const uint8_t*, uint8_t*)> m_read_symbol;
-            stub::function<void(const uint8_t*, uint32_t)> m_read_symbol_index;
-            stub::function<uint32_t()> inner_symbols;
-            stub::function<uint32_t()> symbols;
-            stub::function<bool()> is_outer_systematic;
-        };
-
-        class dummy_stack : public
-            fulcrum_outer_symbol_mapper<dummy_layer>
-        { };
+    // The stubs do not support overloaded functions
+    void map_to_outer(const uint8_t* inner_coefficients,
+                      uint8_t* outer_coefficients)
+    {
+        m_map_to_outer(inner_coefficients, outer_coefficients);
     }
+
+    void map_uncoded_to_outer(uint32_t inner_symbol,
+                              uint8_t* outer_coefficients)
+    {
+        m_map_to_outer_index(inner_symbol, outer_coefficients);
+    }
+
+    void read_symbol(uint8_t* symbol_data,
+                     uint8_t* symbol_coefficients)
+    {
+        m_read_symbol(symbol_data, symbol_coefficients);
+    }
+
+    void read_uncoded_symbol(uint8_t* symbol_data,
+                             uint32_t symbol_index)
+    {
+        m_read_symbol_index(symbol_data, symbol_index);
+    }
+
+    // Stub member functions
+    stub::function<void(const config&)> construct;
+    stub::function<void(const uint8_t*, uint8_t*)> m_map_to_outer;
+    stub::function<void(uint32_t, const uint8_t*)> m_map_to_outer_index;
+    stub::function<void(const uint8_t*, uint8_t*)> m_read_symbol;
+    stub::function<void(const uint8_t*, uint32_t)> m_read_symbol_index;
+    stub::function<uint32_t()> inner_symbols;
+    stub::function<uint32_t()> symbols;
+    stub::function<bool()> is_outer_systematic;
+};
+
+class dummy_stack : public
+    fulcrum_outer_symbol_mapper<dummy_layer>
+{ };
+}
 }
 
 /// Test that read_symbol(uint8_t*,uint8_t*) works as expected
