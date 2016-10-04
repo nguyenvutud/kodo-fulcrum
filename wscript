@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 APPNAME = 'kodo-fulcrum'
-VERSION = '4.0.0'
+VERSION = '5.0.0'
 
 import waflib.extras.wurf_options
 
