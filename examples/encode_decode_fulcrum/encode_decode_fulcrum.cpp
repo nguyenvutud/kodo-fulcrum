@@ -31,7 +31,7 @@ int main()
     uint32_t symbol_size = 160;
 
     // Define the fulcrum encoder/decoder types that we will use
-    using encoder_type = kodo_fulcrum::fulcrum_encoder<fifi::binary8>;
+    using encoder_type = kodo_fulcrum::fulcrum_encoder<fifi::binary>;
     using decoder_type = kodo_fulcrum::fulcrum_combined_decoder<fifi::binary8>;
 
     // In the following we will make an encoder/decoder factory.
@@ -91,7 +91,10 @@ int main()
     {
         // Encode a packet into the payload buffer
         encoder->write_payload(payload.data());
-
+	if(rand()%2==0)
+	{
+		continue;
+	}
         // Pass that packet to the decoder
         decoder->read_payload(payload.data());
     }

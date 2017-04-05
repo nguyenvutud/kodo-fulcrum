@@ -75,3 +75,5 @@ def build(bld):
         bld.recurse('examples/encode_decode_fulcrum')
 
         bld.recurse('benchmark/throughput')
+ 	bld.recurse('benchmark/throughput_fulcrum_sparse')
+ 	bld.recurse('benchmark/decoding_probability')

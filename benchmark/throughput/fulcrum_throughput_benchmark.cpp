@@ -22,6 +22,8 @@ BENCHMARK_OPTION(throughput_options)
     symbols.push_back(64);
     symbols.push_back(128);
     symbols.push_back(256);
+    symbols.push_back(512);
+    symbols.push_back(1024);
 
     auto default_symbols =
         gauge::po::value<std::vector<uint32_t> >()->default_value(
@@ -74,9 +76,10 @@ BENCHMARK_OPTION(throughput_options)
 
 using setup_fulcrum_inner_throughput =
     fulcrum_throughput_benchmark<
-    kodo_fulcrum::fulcrum_encoder<fifi::binary8>,
+    kodo_fulcrum::fulcrum_encoder<fifi::binary8>, 
     kodo_fulcrum::fulcrum_inner_decoder<fifi::binary>>;
 
+/// Macro creating a benchmark using a fixture class
 BENCHMARK_F(setup_fulcrum_inner_throughput, FulcrumInner, Binary, 5);
 
 using setup_fulcrum_outer_throughput =

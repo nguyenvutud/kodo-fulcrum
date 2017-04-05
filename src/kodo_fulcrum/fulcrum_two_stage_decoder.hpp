@@ -329,6 +329,8 @@ public:
         // encoder has produced systematic symbols. Since in that case we
         // are able to map symbols directly between the outer and inner
         // decoders.
+        // Tiet kiem thoi gian xu ly trong t/h su dung systematic codes
+
         for (uint32_t i = 0; i < m_stage_two_decoder->symbols(); ++i)
         {
             bool is_pivot = m_stage_two_decoder->is_symbol_pivot(i);

@@ -150,7 +150,7 @@ public:
             const auto& v = m_coefficients_lookup[i];
 
             SuperCoder::add(outer_coefficients, v.data(),
-                            SuperCoder::coefficient_vector_size());
+                            SuperCoder::coefficient_vector_size());  //Add tung gia tri trong inner coefficient (1) voi outer coefficients: 140  151 183 216 154
         }
     }
 

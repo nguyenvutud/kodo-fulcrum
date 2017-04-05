@@ -52,16 +52,21 @@ class fulcrum_encoder : public
     kodo_core::trace_nested_stack<kodo_core::find_enable_trace<Features>,
     fulcrum_nested_stack<
     kodo_rlnc::shallow_full_vector_encoder<fifi::binary, Features>,
+
     // Coefficient Generator API
     kodo_core::uniform_generator_layers::type<Features,
-    // Codec API
+
+	// Codec API
     kodo_core::common_encoder_layers<Features,
+
     // Coefficient Storage API
     kodo_core::coefficient_value_access<
     kodo_core::coefficient_info<
+
     // Symbol Storage API
     kodo_core::select_storage_layers<
     kodo_core::deep_storage_layers, Features,
+
     // Finite Field API
     kodo_core::finite_field_layers<Field,
     // Fulcrum API

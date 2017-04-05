@@ -26,6 +26,9 @@ public:
     using Super::m_encoder_factory;
     using Super::m_decoder_factory;
 
+    using Super::m_encoder;
+    using Super::m_decoder;
+
 public:
 
     void get_options(gauge::po::variables_map& options)
@@ -70,5 +73,12 @@ public:
 
         m_decoder_factory->set_expansion(expansion);
         m_encoder_factory->set_expansion(expansion);
+    }
+    void setup()
+    {
+        Super::setup();
+
+        gauge::config_set cs = Super::get_current_configuration();
+	m_encoder->set_systematic_off();
     }
 };

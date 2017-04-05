@@ -40,7 +40,9 @@ public:
 
     /// The finite field used by the inner code. Currently we only support
     /// binary, in the future this might change.
-    using inner_field = kodo_core::finite_field_info<fifi::binary>;
+
+	using inner_field = kodo_core::finite_field_info<fifi::binary>;  //Dinh nghia inner field
+//	using inner_field = kodo_core::finite_field_info<fifi::binary4>;  //Dinh nghia inner field
 
 public:
 

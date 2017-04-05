@@ -18,7 +18,7 @@ algorithms, perform simulations and benchmark the coding operations
 on any platform where a recent C++ compiler is available. The library
 provides a multitude of building blocks and parameters that can be combined
 to create codes. For convenience, several codes are predefined and high-level
-APIs are provided.
+APIs are provided.	
 
 .. image:: http://buildbot.steinwurf.dk/svgstatus?project=kodo-fulcrum
     :target: http://buildbot.steinwurf.dk/stats?projects=kodo-fulcrum
